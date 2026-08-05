@@ -1,4 +1,4 @@
-# Quantum-Safe File Transfer Application
+# Quantum-Safe File Transfer Application with hybrid encryption 
 
 ## Overview
 
