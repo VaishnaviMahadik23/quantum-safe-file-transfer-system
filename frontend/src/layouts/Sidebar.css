@@ -1,0 +1,130 @@
+.sidebar {
+  width: 270px;
+  height: 100vh;
+  background: var(--sidebar);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: fixed;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+}
+
+/* Logo */
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 30px 25px;
+  border-bottom: 1px solid var(--border);
+}
+
+.logo-circle {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2563eb, #22c55e);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.sidebar-logo h2 {
+  font-size: 20px;
+  color: white;
+}
+
+.sidebar-logo p {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+/* Menu */
+
+.sidebar-menu {
+  flex: 1;
+  padding: 25px 15px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 14px 18px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  color: var(--text-light);
+  transition: 0.3s;
+  font-weight: 500;
+}
+
+.menu-item:hover {
+  background: rgba(37, 99, 235, 0.15);
+  color: white;
+}
+
+.menu-icon {
+  font-size: 18px;
+}
+
+.active {
+  background: linear-gradient(90deg, #2563eb, #1d4ed8);
+  color: white;
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
+}
+
+/* Footer */
+
+.sidebar-footer {
+  padding: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.logout-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  background: #ef4444;
+  color: white;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  transition: 0.3s;
+}
+
+.logout-btn:hover {
+  background: #dc2626;
+}
+
+/* Responsive */
+
+@media (max-width: 992px) {
+  .sidebar {
+    width: 85px;
+  }
+
+  .sidebar-logo h2,
+  .sidebar-logo p,
+  .menu-item span:last-child,
+  .logout-btn span {
+    display: none;
+  }
+
+  .sidebar-logo {
+    justify-content: center;
+  }
+
+  .menu-item {
+    justify-content: center;
+  }
+}
