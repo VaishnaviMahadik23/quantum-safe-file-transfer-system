@@ -1,0 +1,262 @@
+.crypto-flow-container{
+
+    width:100%;
+
+    margin-top:20px;
+
+}
+
+.flow-heading{
+
+    text-align:center;
+
+    color:#60A5FA;
+
+    margin-bottom:35px;
+
+    font-size:26px;
+
+    font-weight:700;
+
+}
+
+.crypto-flow{
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    flex-wrap:nowrap;      /* Important */
+    gap:18px;
+    overflow-x:auto;       /* Prevents wrapping */
+    padding-left:180px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+/* Card */
+
+.flow-card{
+
+
+    width:150px;
+
+    height:150px;
+
+    background:rgba(30,41,59,.75);
+
+    backdrop-filter:blur(15px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:20px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    transition:.35s;
+
+    position:relative;
+
+}
+
+.flow-card:hover{
+
+    transform:translateY(-8px);
+
+    border-color:#2563EB;
+
+    box-shadow:0 0 35px rgba(37,99,235,.35);
+
+}
+
+.flow-icon{
+
+    width:45px;
+    height:45px;
+
+    font-size:20px;
+
+    margin-bottom:10px;
+
+    border-radius:16px;
+
+    background:linear-gradient(135deg,#2563EB,#7C3AED);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:white;
+
+}
+
+.flow-card h4{
+
+    color:white;
+
+    font-size:13px;
+
+    margin-bottom:12px;
+
+}
+
+.status{
+
+    background:#22C55E22;
+
+    color:#22C55E;
+
+    padding:6px 14px;
+
+    border-radius:30px;
+
+    font-size:12px;
+
+    font-weight:600;
+
+}
+
+/* Arrow */
+
+.flow-wrapper{
+
+    display:flex;
+
+    align-items:center;
+
+    flex-shrink:0;     /* Important */
+}
+
+.flow-arrow{
+
+    width:40px;
+
+    height:4px;
+
+    background:#334155;
+
+    position:relative;
+
+}
+
+.flow-arrow::after{
+
+    content:"";
+
+    position:absolute;
+
+    right:-8px;
+
+    top:-5px;
+
+    border-left:10px solid #334155;
+
+    border-top:7px solid transparent;
+
+    border-bottom:7px solid transparent;
+
+}
+
+/* Moving Dot */
+
+.moving-dot{
+
+    width:10px;
+
+    height:10px;
+
+    border-radius:50%;
+
+    background:#22C55E;
+
+    position:absolute;
+
+    top:-3px;
+
+    left:0;
+
+    animation:moveDot 2s linear infinite;
+
+    box-shadow:0 0 12px #22C55E;
+
+}
+
+@keyframes moveDot{
+
+    from{
+
+        left:0;
+
+    }
+
+    to{
+
+        left:60px;
+
+    }
+
+}
+
+/* Responsive */
+
+@media(max-width:1200px){
+
+.crypto-flow{
+
+flex-direction:column;
+
+}
+
+.flow-wrapper{
+
+flex-direction:column;
+
+}
+
+.flow-arrow{
+
+width:4px;
+
+height:50px;
+
+}
+
+.flow-arrow::after{
+
+right:-5px;
+
+top:42px;
+
+transform:rotate(90deg);
+
+}
+
+@keyframes moveDot{
+
+from{
+
+top:0;
+
+}
+
+to{
+
+top:42px;
+
+}
+
+}
+
+.moving-dot{
+
+left:-3px;
+
+}
+
+}
