@@ -1,7 +1,20 @@
 import "./Navbar.css";
 import { FaBell, FaSearch, FaUserCircle } from "react-icons/fa";
+import { useAuth } from "../context/AuthContext";
 
 function Navbar() {
+  const { user } = useAuth();
+
+  const displayName =
+    user?.firstName ||
+    user?.username ||
+    "User";
+
+  const displayStatus =
+    user?.status === "ACTIVE"
+      ? "Online"
+      : user?.status || "Offline";
+
   return (
     <header className="navbar">
 
@@ -24,23 +37,25 @@ function Navbar() {
 
         </div>
 
-        <button className="notification-btn">
-
+        <button
+          className="notification-btn"
+          type="button"
+          aria-label="Notifications"
+        >
           <FaBell />
 
           <span className="notification-badge">3</span>
-
         </button>
 
         <div className="user-profile">
 
-          <FaUserCircle className="avatar"/>
+          <FaUserCircle className="avatar" />
 
           <div>
 
-            <h4>Vaishnavi</h4>
+            <h4>{displayName}</h4>
 
-            <p>Online</p>
+            <p>{displayStatus}</p>
 
           </div>
 

@@ -1,5 +1,6 @@
 import "./Sidebar.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+
 import {
   FaTachometerAlt,
   FaPaperPlane,
@@ -12,7 +13,13 @@ import {
   FaSignOutAlt,
 } from "react-icons/fa";
 
+import { useAuth } from "../context/AuthContext";
+
 function Sidebar() {
+  const navigate = useNavigate();
+
+  const { logout } = useAuth();
+
   const menuItems = [
     {
       title: "Dashboard",
@@ -56,40 +63,72 @@ function Sidebar() {
     },
   ];
 
+  const handleLogout = () => {
+    logout();
+
+    navigate("/auth", {
+      replace: true,
+    });
+  };
+
   return (
     <aside className="sidebar">
 
       <div className="sidebar-logo">
-        <div className="logo-circle">Q</div>
+
+        <div className="logo-circle">
+          Q
+        </div>
 
         <div>
           <h2>QuantumSafe</h2>
           <p>File Transfer</p>
         </div>
+
       </div>
 
       <nav className="sidebar-menu">
+
         {menuItems.map((item) => (
           <NavLink
             key={item.path}
             to={item.path}
             className={({ isActive }) =>
-              isActive ? "menu-item active" : "menu-item"
+              isActive
+                ? "menu-item active"
+                : "menu-item"
             }
           >
-            <span className="menu-icon">{item.icon}</span>
 
-            <span>{item.title}</span>
+            <span className="menu-icon">
+              {item.icon}
+            </span>
+
+            <span>
+              {item.title}
+            </span>
+
           </NavLink>
         ))}
+
       </nav>
 
       <div className="sidebar-footer">
-        <button className="logout-btn">
+
+        <button
+          className="logout-btn"
+          type="button"
+          onClick={handleLogout}
+        >
+
           <FaSignOutAlt />
 
-          <span>Logout</span>
+          <span>
+            Logout
+          </span>
+
         </button>
+
       </div>
 
     </aside>

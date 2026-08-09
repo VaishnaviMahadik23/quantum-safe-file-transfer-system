@@ -20,7 +20,9 @@ const authApi = {
   },
 
   getCurrentUser: async () => {
-    const response = await axiosClient.get("/api/v1/users/me");
+    const response = await axiosClient.get(
+      "/api/v1/users/me"
+    );
 
     return response.data;
   },
