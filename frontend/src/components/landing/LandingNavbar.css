@@ -80,63 +80,6 @@
 
 }
 
-/* ==========================================
-   NAVIGATION
-========================================== */
-
-.landing-nav-links{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:40px;
-
-}
-
-.landing-nav-links a{
-
-    color:#CBD5E1;
-
-    font-weight:500;
-
-    transition:.3s;
-
-    position:relative;
-
-}
-
-.landing-nav-links a:hover{
-
-    color:white;
-
-}
-
-.landing-nav-links a::after{
-
-    content:"";
-
-    position:absolute;
-
-    left:0;
-
-    bottom:-8px;
-
-    width:0;
-
-    height:2px;
-
-    background:#2563EB;
-
-    transition:.3s;
-
-}
-
-.landing-nav-links a:hover::after{
-
-    width:100%;
-
-}
 
 /* ==========================================
    AUTH BUTTONS

@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./LandingNavbar.css";
 
 function LandingNavbar() {
@@ -17,18 +17,6 @@ function LandingNavbar() {
         </div>
 
       </div>
-
-      <nav className="landing-nav-links">
-
-        <a href="#home">Home</a>
-
-        <a href="#features">Features</a>
-
-        <a href="#workflow">Workflow</a>
-
-        <a href="#about">About</a>
-
-      </nav>
 
       <div className="landing-auth">
 
