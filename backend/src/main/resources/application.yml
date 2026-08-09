@@ -22,6 +22,6 @@ server:
   port: 8080
 
 jwt:
-  secret: "WIcaM2ThKPgBNzrJw2KHqxNxnVwCnGozKwgQPW5JQehmHmLPY5+s3tEWpazZD0SFE9XmJ/sc6N1aJenulUJ9eQ=="
+  secret: ${JWT_SECRET}
   access-token-expiration: 900000
   refresh-token-expiration: 604800000
