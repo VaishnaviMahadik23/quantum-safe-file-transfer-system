@@ -1,11 +1,14 @@
 spring:
+  config:
+    import: optional:file:.env[.properties]
+
   application:
     name: quantum-safe-backend
 
   datasource:
     url: jdbc:postgresql://localhost:5432/quantum_safe_transfer
     username: postgres
-    password: 2375
+    password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   jpa:
