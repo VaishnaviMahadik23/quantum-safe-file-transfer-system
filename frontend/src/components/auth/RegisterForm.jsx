@@ -363,18 +363,6 @@ function RegisterForm({ onSwitch }) {
 
         </div>
 
-        {/* Password Strength */}
-
-        <div className="password-strength">
-
-          <div className="strength-bar"></div>
-
-          <span>
-            Strong Password Recommended
-          </span>
-
-        </div>
-
         {/* Register Button */}
 
         <button

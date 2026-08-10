@@ -1,0 +1,585 @@
+/* =========================
+   CRYPTO PAGE
+========================= */
+
+.crypto-page {
+  width: 100%;
+  min-height: 100%;
+  padding: 32px;
+  box-sizing: border-box;
+  color: #e2e8f0;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.crypto-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.crypto-eyebrow {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: #60a5fa;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.crypto-header h1 {
+  margin: 0;
+  color: #f8fafc;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.crypto-header p {
+  margin: 8px 0 0;
+  color: #94a3b8;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.crypto-security-badge {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 15px;
+  border: 1px solid rgba(96, 165, 250, 0.25);
+  border-radius: 10px;
+  background: rgba(37, 99, 235, 0.1);
+  color: #93c5fd;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.crypto-security-badge svg {
+  font-size: 15px;
+}
+
+/* =========================
+   NOTICE
+========================= */
+
+.crypto-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  margin-bottom: 25px;
+  padding: 19px 21px;
+  border: 1px solid rgba(245, 158, 11, 0.18);
+  border-radius: 14px;
+  background: rgba(245, 158, 11, 0.04);
+}
+
+.crypto-notice-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 9px;
+  background: rgba(245, 158, 11, 0.08);
+  color: #fbbf24;
+}
+
+.crypto-notice-content {
+  min-width: 0;
+}
+
+.crypto-notice-content h3 {
+  margin: 0 0 5px;
+  color: #f1f5f9;
+  font-size: 14px;
+}
+
+.crypto-notice-content p {
+  max-width: 850px;
+  margin: 0;
+  color: #64748b;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.crypto-notice-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 10px;
+  color: #fbbf24;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.crypto-notice-status svg {
+  font-size: 10px;
+}
+
+/* =========================
+   SECTION TITLE
+========================= */
+
+.crypto-pipeline-section,
+.crypto-algorithms-section,
+.crypto-verification-section {
+  margin-bottom: 25px;
+}
+
+.crypto-section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 16px;
+}
+
+.crypto-section-title h2 {
+  margin: 0;
+  color: #f1f5f9;
+  font-size: 18px;
+}
+
+.crypto-section-title p {
+  margin: 5px 0 0;
+  color: #64748b;
+  font-size: 11px;
+}
+
+.crypto-planned-badge {
+  padding: 7px 10px;
+  border: 1px solid rgba(148, 163, 184, 0.1);
+  border-radius: 7px;
+  background: rgba(148, 163, 184, 0.03);
+  color: #64748b;
+  font-size: 9px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* =========================
+   PIPELINE
+========================= */
+
+.crypto-pipeline {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+}
+
+.crypto-pipeline-card {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  padding: 18px;
+  border: 1px solid rgba(96, 165, 250, 0.1);
+  border-radius: 13px;
+  background: rgba(15, 23, 42, 0.68);
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.crypto-pipeline-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(96, 165, 250, 0.22);
+}
+
+.crypto-pipeline-number {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  color: #334155;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.crypto-pipeline-icon {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 13px;
+  border-radius: 9px;
+  background: rgba(37, 99, 235, 0.08);
+  color: #60a5fa;
+}
+
+.crypto-pipeline-label {
+  display: block;
+  margin-bottom: 5px;
+  color: #64748b;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.crypto-pipeline-card h3 {
+  margin: 0 0 7px;
+  color: #dbeafe;
+  font-size: 14px;
+}
+
+.crypto-pipeline-card p {
+  margin: 0;
+  color: #64748b;
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+.crypto-pipeline-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #334155;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* =========================
+   ALGORITHM GRID
+========================= */
+
+.crypto-algorithm-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 13px;
+}
+
+.crypto-algorithm-card {
+  padding: 19px;
+  border: 1px solid rgba(148, 163, 184, 0.09);
+  border-radius: 14px;
+  background: rgba(15, 23, 42, 0.68);
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.crypto-algorithm-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(96, 165, 250, 0.2);
+}
+
+.crypto-algorithm-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 13px;
+}
+
+.crypto-algorithm-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: rgba(37, 99, 235, 0.08);
+  color: #60a5fa;
+  font-size: 15px;
+}
+
+.crypto-algorithm-status {
+  padding: 5px 8px;
+  border: 1px solid rgba(245, 158, 11, 0.12);
+  border-radius: 6px;
+  background: rgba(245, 158, 11, 0.04);
+  color: #fbbf24;
+  font-size: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.crypto-category {
+  display: block;
+  margin-bottom: 5px;
+  color: #64748b;
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+}
+
+.crypto-algorithm-card h3 {
+  margin: 0 0 7px;
+  color: #f1f5f9;
+  font-size: 17px;
+}
+
+.crypto-description {
+  min-height: 42px;
+  margin: 0 0 14px;
+  color: #64748b;
+  font-size: 10px;
+  line-height: 1.7;
+}
+
+.crypto-details-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 7px;
+  padding-top: 13px;
+  border-top: 1px solid rgba(148, 163, 184, 0.07);
+}
+
+.crypto-detail-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #94a3b8;
+  font-size: 9px;
+}
+
+.crypto-detail-item svg {
+  flex-shrink: 0;
+  color: #60a5fa;
+  font-size: 9px;
+}
+
+/* =========================
+   VERIFICATION
+========================= */
+
+.crypto-verification-section {
+  padding: 21px;
+  border: 1px solid rgba(148, 163, 184, 0.08);
+  border-radius: 15px;
+  background: rgba(15, 23, 42, 0.68);
+}
+
+.crypto-verification-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 11px;
+}
+
+.crypto-verification-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid rgba(148, 163, 184, 0.07);
+  border-radius: 10px;
+  background: rgba(30, 41, 59, 0.22);
+}
+
+.crypto-verification-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: rgba(96, 165, 250, 0.07);
+  color: #60a5fa;
+  font-size: 11px;
+}
+
+.crypto-verification-content {
+  min-width: 0;
+}
+
+.crypto-verification-content span {
+  display: block;
+  margin-bottom: 4px;
+  color: #64748b;
+  font-size: 8px;
+}
+
+.crypto-verification-content strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #fbbf24;
+  font-size: 11px;
+}
+
+.crypto-verification-content small {
+  display: block;
+  color: #475569;
+  font-size: 8px;
+  line-height: 1.4;
+}
+
+/* =========================
+   SECRET NOTICE
+========================= */
+
+.crypto-secret-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  margin-bottom: 22px;
+  padding: 17px;
+  border: 1px solid rgba(34, 197, 94, 0.12);
+  border-radius: 13px;
+  background: rgba(34, 197, 94, 0.03);
+}
+
+.crypto-secret-icon {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 9px;
+  background: rgba(34, 197, 94, 0.07);
+  color: #4ade80;
+}
+
+.crypto-secret-notice h3 {
+  margin: 0 0 5px;
+  color: #bbf7d0;
+  font-size: 13px;
+}
+
+.crypto-secret-notice p {
+  max-width: 900px;
+  margin: 0;
+  color: #64748b;
+  font-size: 10px;
+  line-height: 1.7;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.crypto-footer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 11px;
+}
+
+.crypto-footer-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 15px;
+  border: 1px solid rgba(148, 163, 184, 0.07);
+  border-radius: 10px;
+  background: rgba(15, 23, 42, 0.5);
+}
+
+.crypto-footer-item > svg {
+  color: #60a5fa;
+  font-size: 13px;
+}
+
+.crypto-footer-item span {
+  display: block;
+  margin-bottom: 3px;
+  color: #475569;
+  font-size: 8px;
+}
+
+.crypto-footer-item strong {
+  color: #94a3b8;
+  font-size: 10px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1100px) {
+  .crypto-pipeline {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .crypto-pipeline-arrow {
+    display: none;
+  }
+
+  .crypto-verification-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 850px) {
+  .crypto-header {
+    flex-direction: column;
+  }
+
+  .crypto-security-badge {
+    width: fit-content;
+  }
+
+  .crypto-algorithm-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .crypto-footer {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 650px) {
+  .crypto-page {
+    padding: 20px;
+  }
+
+  .crypto-header h1 {
+    font-size: 27px;
+  }
+
+  .crypto-pipeline {
+    grid-template-columns: 1fr;
+  }
+
+  .crypto-details-list {
+    grid-template-columns: 1fr;
+  }
+
+  .crypto-verification-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .crypto-section-title {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .crypto-notice {
+    padding: 16px;
+  }
+
+  .crypto-verification-section {
+    padding: 17px;
+  }
+}
+
+@media (max-width: 450px) {
+  .crypto-page {
+    padding: 15px;
+  }
+
+  .crypto-header h1 {
+    font-size: 24px;
+  }
+
+  .crypto-header p {
+    font-size: 12px;
+  }
+
+  .crypto-pipeline-card,
+  .crypto-algorithm-card {
+    padding: 16px;
+  }
+
+  .crypto-secret-notice {
+    flex-direction: column;
+  }
+}
