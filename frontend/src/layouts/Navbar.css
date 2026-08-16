@@ -1,0 +1,175 @@
+.navbar{
+
+    height:80px;
+
+    background:var(--navbar);
+
+    border-bottom:1px solid var(--border);
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:0 30px;
+
+}
+
+.navbar-left h2{
+
+    font-size:24px;
+
+    color:white;
+
+}
+
+.navbar-left p{
+
+    color:var(--text-muted);
+
+    margin-top:5px;
+
+    font-size:14px;
+
+}
+
+.navbar-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+}
+
+/* Search */
+
+.search-box{
+
+    display:flex;
+
+    align-items:center;
+
+    background:#172033;
+
+    border:1px solid var(--border);
+
+    border-radius:10px;
+
+    padding:10px 15px;
+
+    gap:10px;
+
+}
+
+.search-box input{
+
+    border:none;
+
+    outline:none;
+
+    background:transparent;
+
+    color:white;
+
+    width:220px;
+
+}
+
+/* Notification */
+
+.notification-btn{
+
+    position:relative;
+
+    width:45px;
+
+    height:45px;
+
+    border:none;
+
+    border-radius:50%;
+
+    cursor:pointer;
+
+    background:#172033;
+
+    color:white;
+
+    font-size:18px;
+
+    transition:.3s;
+
+}
+
+.notification-btn:hover{
+
+    background:var(--primary);
+
+}
+
+.notification-badge{
+
+    position:absolute;
+
+    top:6px;
+
+    right:6px;
+
+    width:18px;
+
+    height:18px;
+
+    border-radius:50%;
+
+    background:red;
+
+    color:white;
+
+    font-size:11px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+/* User */
+
+.user-profile{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+.avatar{
+
+    font-size:42px;
+
+    color:var(--primary);
+
+}
+
+.user-profile h4{
+
+    color:white;
+
+    font-size:15px;
+
+}
+
+.user-profile p{
+
+    color:var(--success);
+
+    font-size:13px;
+
+}

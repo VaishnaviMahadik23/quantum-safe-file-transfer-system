@@ -1,0 +1,105 @@
+/* =====================================
+   FLIP CARD
+===================================== */
+
+.flip-card {
+
+    width: 100%;
+
+    max-width: 470px;
+
+    height: 650px;
+
+    perspective: 1800px;
+
+}
+
+.flip-card-inner {
+
+    position: relative;
+
+    width: 100%;
+
+    height: 100%;
+
+    transition: transform .8s ease;
+
+    transform-style: preserve-3d;
+
+}
+
+.flip-card-inner.flipped {
+
+    transform: rotateY(180deg);
+
+}
+
+.flip-card-front,
+.flip-card-back {
+
+    position: absolute;
+
+    inset: 0;
+
+    border-radius: 28px;
+
+    background: rgba(17,24,39,.88);
+
+    backdrop-filter: blur(18px);
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.35);
+
+    backface-visibility: hidden;
+
+    overflow: hidden;
+
+}
+
+.flip-card-back {
+
+    transform: rotateY(180deg);
+
+}
+
+/* Glow Animation */
+
+.flip-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: -2px;
+
+    border-radius: 30px;
+
+    background: linear-gradient(
+        135deg,
+        rgba(37,99,235,.35),
+        rgba(124,58,237,.35)
+    );
+
+    filter: blur(18px);
+
+    z-index: -1;
+
+}
+
+/* Responsive */
+
+@media (max-width:768px){
+
+.flip-card{
+
+height:auto;
+
+min-height:620px;
+
+max-width:100%;
+
+}
+
+}

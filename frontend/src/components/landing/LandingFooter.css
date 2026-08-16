@@ -1,0 +1,33 @@
+.landing-footer{
+
+    margin-top:120px;
+
+    padding:60px;
+
+    border-top:1px solid #334155;
+
+    text-align:center;
+
+}
+
+.landing-footer h2{
+
+    color:#3B82F6;
+
+    margin-bottom:15px;
+
+}
+
+.landing-footer p{
+
+    color:#CBD5E1;
+
+    margin-bottom:15px;
+
+}
+
+.landing-footer span{
+
+    color:#64748B;
+
+}

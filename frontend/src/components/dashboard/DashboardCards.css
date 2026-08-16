@@ -1,0 +1,201 @@
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+/* Card */
+
+.dashboard-card {
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 18px;
+
+    padding: 22px;
+
+    transition: all .35s ease;
+
+    cursor: pointer;
+
+    position: relative;
+
+    overflow: hidden;
+
+}
+
+.dashboard-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    top: 0;
+
+    width: 5px;
+
+    height: 100%;
+
+}
+
+.dashboard-card:hover {
+
+    transform: translateY(-8px);
+
+    box-shadow: 0 18px 40px rgba(0,0,0,.35);
+
+}
+
+/* Top */
+
+.card-top {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+}
+
+.card-icon {
+
+    width: 58px;
+
+    height: 58px;
+
+    border-radius: 15px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    font-size: 24px;
+
+    color: white;
+
+}
+
+.card-change {
+
+    font-size: 13px;
+
+    color: var(--text-muted);
+
+}
+
+/* Content */
+
+.card-content {
+
+    margin-top: 28px;
+
+}
+
+.card-content h3 {
+
+    color: var(--text-light);
+
+    font-size: 15px;
+
+    font-weight: 500;
+
+    margin-bottom: 10px;
+
+}
+
+.card-content h2 {
+
+    color: white;
+
+    font-size: 34px;
+
+    font-weight: 700;
+
+}
+
+/* Blue */
+
+.dashboard-card.blue::before {
+
+    background: #2563EB;
+
+}
+
+.dashboard-card.blue .card-icon {
+
+    background: linear-gradient(135deg,#2563EB,#1D4ED8);
+
+}
+
+/* Green */
+
+.dashboard-card.green::before {
+
+    background: #22C55E;
+
+}
+
+.dashboard-card.green .card-icon {
+
+    background: linear-gradient(135deg,#22C55E,#16A34A);
+
+}
+
+/* Purple */
+
+.dashboard-card.purple::before {
+
+    background: #8B5CF6;
+
+}
+
+.dashboard-card.purple .card-icon {
+
+    background: linear-gradient(135deg,#8B5CF6,#7C3AED);
+
+}
+
+/* Orange */
+
+.dashboard-card.orange::before {
+
+    background: #F59E0B;
+
+}
+
+.dashboard-card.orange .card-icon {
+
+    background: linear-gradient(135deg,#F59E0B,#D97706);
+
+}
+
+/* Tablet */
+
+@media (max-width:1100px){
+
+.dashboard-cards{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+}
+
+/* Mobile */
+
+@media (max-width:700px){
+
+.dashboard-cards{
+
+grid-template-columns:1fr;
+
+}
+
+}
