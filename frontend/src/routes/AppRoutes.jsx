@@ -11,6 +11,7 @@ import CryptoDetails from "../pages/crypto/CryptoDetails";
 import Profile from "../pages/profile/Profile";
 import Settings from "../pages/settings/Settings";
 import AdminDashboard from "../pages/admin/AdminDashboard";
+import ForgotPassword from "../pages/auth/ForgotPassword";
 
 import ProtectedRoute from "../components/auth/ProtectedRoute";
 
@@ -42,6 +43,7 @@ function AppRoutes() {
           path="/dashboard"
           element={<Dashboard />}
         />
+
 
         <Route
           path="/send-file"
@@ -77,6 +79,11 @@ function AppRoutes() {
           path="/admin"
           element={<AdminDashboard />}
         />
+
+              <Route
+        path="/forgot-password"
+        element={<ForgotPassword />}
+      />
 
       </Route>
 

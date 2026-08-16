@@ -179,10 +179,11 @@ function LoginForm({ onSwitch }) {
             Remember Me
           </label>
 
-          <button
-            type="button"
-            className="forgot-btn"
-            disabled={loading}
+              <button
+                type="button"
+                className="forgot-btn"
+                disabled={loading}
+                onClick={() => navigate("/forgot-password")}
           >
             Forgot Password?
           </button>
