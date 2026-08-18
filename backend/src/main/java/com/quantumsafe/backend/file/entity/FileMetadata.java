@@ -29,9 +29,41 @@ public class FileMetadata {
     @Column(nullable = false)
     private Long fileSize;
 
+    /**
+     * AES-256-GCM encrypted file contents.
+     *
+     * Currently stored as PostgreSQL Large Object (OID)
+     * to match the existing database schema.
+     */
     @Lob
     @Column(nullable = false)
     private byte[] fileData;
+
+    /**
+     * Random 12-byte GCM initialization vector.
+     *
+     * Stored directly as PostgreSQL BYTEA.
+     */
+    @Column(
+            name = "initialization_vector",
+            nullable = false,
+            columnDefinition = "bytea"
+    )
+    private byte[] initializationVector;
+
+    /**
+     * Encryption algorithm used for this file.
+     */
+    @Column(nullable = false, length = 50)
+    @Builder.Default
+    private String encryptionAlgorithm = "AES-256-GCM";
+
+    /**
+     * Will be connected to the protected AES-key
+     * management / Kyber wrapping mechanism later.
+     */
+    @Column(length = 100)
+    private String encryptionKeyId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "owner_id", nullable = false)
