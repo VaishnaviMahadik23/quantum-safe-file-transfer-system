@@ -31,18 +31,13 @@ public class FileMetadata {
 
     /**
      * AES-256-GCM encrypted file contents.
-     *
-     * Currently stored as PostgreSQL Large Object (OID)
-     * to match the existing database schema.
      */
     @Lob
     @Column(nullable = false)
     private byte[] fileData;
 
     /**
-     * Random 12-byte GCM initialization vector.
-     *
-     * Stored directly as PostgreSQL BYTEA.
+     * IV used for AES-256-GCM file encryption.
      */
     @Column(
             name = "initialization_vector",
@@ -52,18 +47,84 @@ public class FileMetadata {
     private byte[] initializationVector;
 
     /**
-     * Encryption algorithm used for this file.
+     * Encryption algorithm used for file contents.
      */
     @Column(nullable = false, length = 50)
     @Builder.Default
     private String encryptionAlgorithm = "AES-256-GCM";
 
     /**
-     * Will be connected to the protected AES-key
-     * management / Kyber wrapping mechanism later.
+     * Identifier of the ML-KEM-768 key pair
+     * used to protect the AES key.
      */
-    @Column(length = 100)
+    @Column(name = "encryption_key_id", length = 100)
     private String encryptionKeyId;
+
+    /**
+     * ML-KEM-768 encapsulation ciphertext.
+     *
+     * This is public cryptographic metadata and
+     * is required during AES-key recovery.
+     */
+    @Column(
+            name = "kem_ciphertext",
+            nullable = false,
+            columnDefinition = "bytea"
+    )
+    private byte[] kemCiphertext;
+
+    /**
+     * AES-256-GCM encrypted/wrapped AES file key.
+     */
+    @Column(
+            name = "wrapped_aes_key",
+            nullable = false,
+            columnDefinition = "bytea"
+    )
+    private byte[] wrappedAesKey;
+
+    /**
+     * IV used when wrapping the AES file key.
+     */
+    @Column(
+            name = "wrap_iv",
+            nullable = false,
+            columnDefinition = "bytea"
+    )
+    private byte[] wrapIv;
+
+    /**
+     * KEM algorithm.
+     */
+    @Column(
+            name = "kem_algorithm",
+            nullable = false,
+            length = 50
+    )
+    @Builder.Default
+    private String kemAlgorithm = "ML-KEM-768";
+
+    /**
+     * KDF used to derive the AES key-wrapping key.
+     */
+    @Column(
+            name = "kdf_algorithm",
+            nullable = false,
+            length = 50
+    )
+    @Builder.Default
+    private String kdfAlgorithm = "HKDF-SHA-256";
+
+    /**
+     * Algorithm used to wrap the AES file key.
+     */
+    @Column(
+            name = "wrapping_algorithm",
+            nullable = false,
+            length = 50
+    )
+    @Builder.Default
+    private String wrappingAlgorithm = "AES-256-GCM";
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "owner_id", nullable = false)
