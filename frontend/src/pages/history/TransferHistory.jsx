@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import MainLayout from "../../layouts/MainLayout";
+
 import {
   FaSearch,
   FaFilter,
@@ -210,7 +210,6 @@ function TransferHistory() {
   ).length;
 
   return (
-    <MainLayout>
     <div className="transfer-history-page">
 
       {/* =========================
@@ -629,7 +628,7 @@ function TransferHistory() {
       </div>
 
     </div>
-    </MainLayout>
+
   );
 }
 

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import "./LoginForm.css";
 
 import {
@@ -8,6 +9,8 @@ import {
   FaEye,
   FaEyeSlash,
   FaArrowRight,
+  FaShieldAlt,
+  FaCircle,
 } from "react-icons/fa";
 
 import { useAuth } from "../../context/AuthContext";
@@ -38,29 +41,14 @@ function LoginForm({ onSwitch }) {
     try {
       setLoading(true);
 
-      const loginData = {
+      await login({
         email: email.trim(),
         password,
-      };
+      });
 
-      // Authentication is handled by AuthContext.
-      // AuthContext:
-      // 1. Calls POST /api/v1/auth/login
-      // 2. Stores the accessToken
-      // 3. Calls GET /api/v1/users/me
-      // 4. Stores the authenticated user
-      await login(loginData);
-
-      // Login and user verification succeeded.
       navigate("/dashboard");
     } catch (error) {
-      console.error("========== LOGIN ERROR ==========");
-      console.error("Error:", error);
-      console.error("Message:", error.message);
-      console.error("Code:", error.code);
-      console.error("Response:", error.response);
-      console.error("Request:", error.request);
-      console.error("=================================");
+      console.error("LOGIN ERROR:", error);
 
       if (!error.response) {
         if (error.message?.includes("token")) {
@@ -79,18 +67,16 @@ function LoginForm({ onSwitch }) {
           "You are not authorized to access this application."
         );
       } else if (error.response.status === 400) {
-        const backendMessage =
+        setErrorMessage(
           error.response.data?.message ||
-          error.response.data?.error ||
-          "Please check your login details.";
-
-        setErrorMessage(backendMessage);
+            error.response.data?.error ||
+            "Please check your login details."
+        );
       } else {
-        const backendMessage =
+        setErrorMessage(
           error.response.data?.message ||
-          "Login failed. Please try again.";
-
-        setErrorMessage(backendMessage);
+            "Login failed. Please try again."
+        );
       }
     } finally {
       setLoading(false);
@@ -99,118 +85,227 @@ function LoginForm({ onSwitch }) {
 
   return (
     <div className="login-form">
-      <h2>Welcome Back</h2>
 
-      <p>
-        Sign in to access your secure file transfer dashboard.
-      </p>
+      {/* =================================================
+          HEADER
+      ================================================= */}
+
+      <div className="auth-brand-mark">
+        <div className="auth-brand-icon">
+          <FaShieldAlt />
+        </div>
+
+        <div>
+          <span>QUANTUMSAFE</span>
+          <small>SECURE FILE TRANSFER</small>
+        </div>
+      </div>
+
+      <div className="login-heading">
+
+        <div className="auth-eyebrow">
+          <FaCircle />
+          SECURE AUTHENTICATION
+        </div>
+
+        <h2>
+          Welcome <span>Back.</span>
+        </h2>
+
+        <p>
+          Sign in to access your quantum-safe
+          file transfer workspace.
+        </p>
+
+      </div>
+
+      {/* =================================================
+          FORM
+      ================================================= */}
 
       <form onSubmit={handleSubmit}>
-        {/* Error Message */}
 
         {errorMessage && (
-          <div
-            style={{
-              padding: "12px 14px",
-              borderRadius: "10px",
-              background: "rgba(239, 68, 68, 0.12)",
-              border: "1px solid rgba(239, 68, 68, 0.35)",
-              color: "#FCA5A5",
-              fontSize: "14px",
-            }}
-            role="alert"
-          >
+          <div className="auth-message auth-error" role="alert">
+            <span className="message-dot"></span>
             {errorMessage}
           </div>
         )}
 
-        {/* Email */}
+        {/* EMAIL */}
 
-        <div className="input-group">
-          <FaEnvelope className="input-icon" />
+        <div className="auth-field">
 
-          <input
-            type="email"
-            placeholder="Email Address"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            autoComplete="email"
-            disabled={loading}
-            required
-          />
+          <label htmlFor="login-email">
+            EMAIL ADDRESS
+          </label>
+
+          <div className="input-group">
+
+            <FaEnvelope className="input-icon" />
+
+            <input
+              id="login-email"
+              type="email"
+              placeholder="you@example.com"
+              value={email}
+              onChange={(event) =>
+                setEmail(event.target.value)
+              }
+              autoComplete="email"
+              disabled={loading}
+              required
+            />
+
+          </div>
+
         </div>
 
-        {/* Password */}
+        {/* PASSWORD */}
 
-        <div className="input-group">
-          <FaLock className="input-icon" />
+        <div className="auth-field">
 
-          <input
-            type={showPassword ? "text" : "password"}
-            placeholder="Password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            autoComplete="current-password"
-            disabled={loading}
-            required
-          />
+          <div className="field-header">
 
-          <button
-            type="button"
-            className="eye-btn"
-            onClick={() => setShowPassword(!showPassword)}
-            disabled={loading}
-            aria-label={
-              showPassword ? "Hide password" : "Show password"
-            }
-          >
-            {showPassword ? <FaEyeSlash /> : <FaEye />}
-          </button>
+            <label htmlFor="login-password">
+              PASSWORD
+            </label>
+
+            <button
+              type="button"
+              className="forgot-btn"
+              disabled={loading}
+              onClick={() =>
+                navigate("/forgot-password")
+              }
+            >
+              Forgot password?
+            </button>
+
+          </div>
+
+          <div className="input-group">
+
+            <FaLock className="input-icon" />
+
+            <input
+              id="login-password"
+              type={
+                showPassword
+                  ? "text"
+                  : "password"
+              }
+              placeholder="Enter your password"
+              value={password}
+              onChange={(event) =>
+                setPassword(event.target.value)
+              }
+              autoComplete="current-password"
+              disabled={loading}
+              required
+            />
+
+            <button
+              type="button"
+              className="eye-btn"
+              onClick={() =>
+                setShowPassword(!showPassword)
+              }
+              disabled={loading}
+              aria-label={
+                showPassword
+                  ? "Hide password"
+                  : "Show password"
+              }
+            >
+              {showPassword ? (
+                <FaEyeSlash />
+              ) : (
+                <FaEye />
+              )}
+            </button>
+
+          </div>
+
         </div>
 
-        {/* Login Options */}
+        {/* OPTIONS */}
 
         <div className="login-options">
-          <label>
+
+          <label className="remember-option">
+
             <input
               type="checkbox"
               disabled={loading}
             />
-            Remember Me
+
+            <span className="custom-checkbox"></span>
+
+            Remember this device
+
           </label>
 
-              <button
-                type="button"
-                className="forgot-btn"
-                disabled={loading}
-                onClick={() => navigate("/forgot-password")}
-          >
-            Forgot Password?
-          </button>
+          <div className="session-status">
+            <span></span>
+            SESSION ENCRYPTED
+          </div>
+
         </div>
 
-        {/* Login Button */}
+        {/* BUTTON */}
 
         <button
           className="login-btn"
           type="submit"
           disabled={loading}
         >
-          {loading ? "Signing In..." : "Sign In"}
+
+          <span>
+            {loading
+              ? "Authenticating..."
+              : "Sign In Securely"}
+          </span>
 
           {!loading && <FaArrowRight />}
+
         </button>
+
       </form>
 
-      {/* Switch to Registration */}
+      {/* =================================================
+          FOOTER
+      ================================================= */}
 
-      <button
-        className="register-switch"
-        onClick={onSwitch}
-        disabled={loading}
-      >
-        Create New Account
-      </button>
+      <div className="auth-switch">
+
+        <span>
+          Don't have a QuantumSafe account?
+        </span>
+
+        <button
+          type="button"
+          onClick={onSwitch}
+          disabled={loading}
+        >
+          Create Account
+        </button>
+
+      </div>
+
+      <div className="auth-security-footer">
+        <FaLock />
+        <span>AES-256</span>
+
+        <i></i>
+
+        <span>KYBER KEM</span>
+
+        <i></i>
+
+        <span>DILITHIUM</span>
+      </div>
+
     </div>
   );
 }

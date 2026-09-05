@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import MainLayout from "../../layouts/MainLayout";
+
 import {
   FaSearch,
   FaFile,
@@ -184,7 +184,7 @@ function ReceiveFiles() {
   };
 
   return (
-    <MainLayout>
+
     <div className="receive-files-page">
 
       {/* =========================
@@ -557,7 +557,6 @@ function ReceiveFiles() {
       </div>
 
     </div>
-    </MainLayout>
   );
 }
 

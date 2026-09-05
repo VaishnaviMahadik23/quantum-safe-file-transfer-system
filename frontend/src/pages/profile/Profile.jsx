@@ -13,7 +13,6 @@ import {
 import { useAuth } from "../../context/AuthContext";
 
 import "./Profile.css";
-import MainLayout from "../../layouts/MainLayout";
 
 function Profile() {
   const { user, loading, isAuthenticated } = useAuth();
@@ -79,7 +78,6 @@ function Profile() {
   const status = user.status || "ACTIVE";
 
   return (
-    <MainLayout>
     <div className="profile-page">
 
       {/* =========================
@@ -503,7 +501,7 @@ function Profile() {
       </div>
 
     </div>
-  </MainLayout>
+  
   );
 }
 

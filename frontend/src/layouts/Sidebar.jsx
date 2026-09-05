@@ -1,144 +1,3 @@
-/*import "./Sidebar.css";
-import { NavLink, useNavigate } from "react-router-dom";
-
-import {
-  FaTachometerAlt,
-  FaPaperPlane,
-  FaInbox,
-  FaHistory,
-  FaShieldAlt,
-  FaUser,
-  FaCog,
-  FaUserShield,
-  FaSignOutAlt,
-} from "react-icons/fa";
-
-import { useAuth } from "../context/AuthContext";
-
-function Sidebar() {
-  const navigate = useNavigate();
-
-  const { logout } = useAuth();
-
-  const menuItems = [
-    {
-      title: "Dashboard",
-      path: "/dashboard",
-      icon: <FaTachometerAlt />,
-    },
-    {
-      title: "Send File",
-      path: "/send-file",
-      icon: <FaPaperPlane />,
-    },
-    {
-      title: "Received Files",
-      path: "/received-files",
-      icon: <FaInbox />,
-    },
-    {
-      title: "Transfer History",
-      path: "/history",
-      icon: <FaHistory />,
-    },
-    {
-      title: "Crypto Details",
-      path: "/crypto",
-      icon: <FaShieldAlt />,
-    },
-    {
-      title: "Profile",
-      path: "/profile",
-      icon: <FaUser />,
-    },
-    {
-      title: "Settings",
-      path: "/settings",
-      icon: <FaCog />,
-    },
-    {
-      title: "Admin",
-      path: "/admin",
-      icon: <FaUserShield />,
-    },
-  ];
-
-  const handleLogout = () => {
-    logout();
-
-    navigate("/auth", {
-      replace: true,
-    });
-  };
-
-  return (
-    <aside className="sidebar">
-
-      <div className="sidebar-logo">
-
-        <div className="logo-circle">
-          Q
-        </div>
-
-        <div>
-          <h2>QuantumSafe</h2>
-          <p>File Transfer</p>
-        </div>
-
-      </div>
-
-      <nav className="sidebar-menu">
-
-        {menuItems.map((item) => (
-          <NavLink
-            key={item.path}
-            to={item.path}
-            className={({ isActive }) =>
-              isActive
-                ? "menu-item active"
-                : "menu-item"
-            }
-          >
-
-            <span className="menu-icon">
-              {item.icon}
-            </span>
-
-            <span>
-              {item.title}
-            </span>
-
-          </NavLink>
-        ))}
-
-      </nav>
-
-      <div className="sidebar-footer">
-
-        <button
-          className="logout-btn"
-          type="button"
-          onClick={handleLogout}
-        >
-
-          <FaSignOutAlt />
-
-          <span>
-            Logout
-          </span>
-
-        </button>
-
-      </div>
-
-    </aside>
-  );
-}
-
-export default Sidebar;
-*/
-
-// improved version of sidebar.jsx with better styling and collapsible functionality
 import "./newlyaddedcss_for_sidebar.css";
 import { NavLink, useNavigate } from "react-router-dom";
 
@@ -155,16 +14,19 @@ import {
   FaChevronLeft,
   FaChevronRight,
   FaTimes,
-  FaCheckCircle,
   FaArrowRight,
   FaLock,
   FaKey,
   FaFingerprint,
   FaServer,
+  FaAtom,
+  FaCertificate,
+  FaBolt,
 } from "react-icons/fa";
 
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
+
 
 function Sidebar({ collapsed, setCollapsed }) {
 
@@ -172,11 +34,8 @@ function Sidebar({ collapsed, setCollapsed }) {
 
   const { logout } = useAuth();
 
-  /*
-   * Security Center belongs to Sidebar,
-   * so this state stays here.
-   */
-  const [showSecurityCenter, setShowSecurityCenter] = useState(false);
+  const [showSecurityCenter, setShowSecurityCenter] =
+    useState(false);
 
 
   /* =========================================================
@@ -275,9 +134,9 @@ function Sidebar({ collapsed, setCollapsed }) {
      MENU RENDERER
   ========================================================= */
 
-  const renderItems = (items) =>
+  const renderItems = (items) => {
 
-    items.map((item) => (
+    return items.map((item) => (
 
       <NavLink
         key={item.path}
@@ -292,21 +151,19 @@ function Sidebar({ collapsed, setCollapsed }) {
           {item.icon}
         </span>
 
-
         {!collapsed && (
-
           <span className="menu-text">
             {item.title}
           </span>
-
         )}
-
 
         <span className="menu-shine"></span>
 
       </NavLink>
 
     ));
+
+  };
 
 
   return (
@@ -318,12 +175,13 @@ function Sidebar({ collapsed, setCollapsed }) {
       ===================================================== */}
 
       <aside
-        className={`sidebar ${collapsed ? "collapsed" : ""}`}
+        className={`sidebar ${
+          collapsed ? "collapsed" : ""
+        }`}
       >
 
-
         {/* =================================================
-            TOP / BRAND
+            TOP
         ================================================= */}
 
         <div className="sidebar-top">
@@ -364,12 +222,14 @@ function Sidebar({ collapsed, setCollapsed }) {
           </div>
 
 
-          {/* COLLAPSE BUTTON */}
+          {/* COLLAPSE */}
 
           <button
             className="collapse-btn"
             type="button"
-            onClick={() => setCollapsed(!collapsed)}
+            onClick={() =>
+              setCollapsed(!collapsed)
+            }
             aria-label={
               collapsed
                 ? "Expand sidebar"
@@ -388,7 +248,7 @@ function Sidebar({ collapsed, setCollapsed }) {
 
 
         {/* =================================================
-            SECURITY STATUS
+            SYSTEM SECURE
         ================================================= */}
 
         {!collapsed && (
@@ -406,7 +266,6 @@ function Sidebar({ collapsed, setCollapsed }) {
               <div className="security-orb">
                 <span></span>
               </div>
-
 
               <div className="security-status-text">
 
@@ -438,41 +297,28 @@ function Sidebar({ collapsed, setCollapsed }) {
 
         <nav className="sidebar-menu">
 
-
-          {/* WORKSPACE */}
-
           {!collapsed && (
-
             <p className="menu-label">
               WORKSPACE
             </p>
-
           )}
 
           {renderItems(mainMenu)}
 
 
-          {/* SECURITY */}
-
           {!collapsed && (
-
             <p className="menu-label security-label">
               SECURITY
             </p>
-
           )}
 
           {renderItems(securityMenu)}
 
 
-          {/* ACCOUNT */}
-
           {!collapsed && (
-
             <p className="menu-label security-label">
               ACCOUNT
             </p>
-
           )}
 
           {renderItems(accountMenu)}
@@ -495,24 +341,19 @@ function Sidebar({ collapsed, setCollapsed }) {
 
             <FaSignOutAlt />
 
-
             {!collapsed && (
-
               <span>
                 Logout
               </span>
-
             )}
 
           </button>
 
 
           {!collapsed && (
-
             <div className="sidebar-version">
               QuantumSafe v1.0
             </div>
-
           )}
 
         </div>
@@ -521,7 +362,7 @@ function Sidebar({ collapsed, setCollapsed }) {
 
 
       {/* =====================================================
-          SECURITY CENTER MODAL
+          QUANTUM SECURITY CENTER
       ===================================================== */}
 
       {showSecurityCenter && (
@@ -534,11 +375,15 @@ function Sidebar({ collapsed, setCollapsed }) {
         >
 
           <div
-            className="security-center"
+            className="quantum-security-modal"
             onClick={(e) =>
               e.stopPropagation()
             }
           >
+
+            {/* SCAN LINE */}
+
+            <div className="security-scan-line"></div>
 
 
             {/* =================================================
@@ -549,19 +394,29 @@ function Sidebar({ collapsed, setCollapsed }) {
 
               <div className="security-title">
 
-                <div className="security-shield">
+                <div className="quantum-security-icon">
+
                   <FaShieldAlt />
+
+                  <span className="security-ring ring-1"></span>
+
+                  <span className="security-ring ring-2"></span>
+
                 </div>
 
 
                 <div>
+
+                  <span className="security-eyebrow">
+                    QUANTUMSAFE SECURITY PROTOCOL
+                  </span>
 
                   <h2>
                     Security Center
                   </h2>
 
                   <p>
-                    Security Overview
+                    Real-time cryptographic protection overview
                   </p>
 
                 </div>
@@ -575,7 +430,7 @@ function Sidebar({ collapsed, setCollapsed }) {
                 onClick={() =>
                   setShowSecurityCenter(false)
                 }
-                aria-label="Close security center"
+                aria-label="Close Security Center"
               >
 
                 <FaTimes />
@@ -586,114 +441,216 @@ function Sidebar({ collapsed, setCollapsed }) {
 
 
             {/* =================================================
-                SECURITY ITEMS
+                HERO
             ================================================= */}
 
-            <div className="security-items">
+            <div className="security-hero">
+
+              <div className="security-core-visual">
+
+                <div className="core-glow"></div>
 
 
-              <SecurityItem
-                icon={<FaShieldAlt />}
-                color="green"
-                title="System Protection"
-                status="SECURE"
-                description="Your files and communication are protected."
-              />
+                <div className="core-orbit orbit-a"></div>
+
+                <div className="core-orbit orbit-b"></div>
+
+                <div className="core-orbit orbit-c"></div>
 
 
-              <SecurityItem
-                icon={<FaLock />}
-                color="blue"
-                title="AES-256 Encryption"
-                status="Active"
-                description="Military-grade file encryption."
-              />
+                <div className="core-shield">
+
+                  <FaShieldAlt />
+
+                </div>
+
+              </div>
 
 
-              <SecurityItem
-                icon={<FaKey />}
-                color="purple"
-                title="Kyber Key Protection"
-                status="Active"
-                description="Post-quantum key exchange protection."
-              />
+              <div className="security-hero-content">
+
+                <span className="protection-label">
+                  CURRENT PROTECTION LEVEL
+                </span>
+
+                <h1>
+                  100<span>%</span>
+                </h1>
 
 
-              <SecurityItem
-                icon={<FaFingerprint />}
-                color="orange"
-                title="Dilithium Signature"
-                status="Active"
-                description="Digital signature verification enabled."
-              />
+                <div className="protected-status">
+
+                  <span className="status-pulse"></span>
+
+                  SYSTEM FULLY PROTECTED
+
+                </div>
 
 
-              <SecurityItem
-                icon={<FaUserShield />}
-                color="cyan"
-                title="JWT Authentication"
-                status="Active"
-                description="Secure identity verification enabled."
-              />
+                <p>
+                  QuantumSafe combines classical and
+                  post-quantum cryptographic technologies
+                  to protect files, encryption keys,
+                  identities and digital signatures.
+                </p>
 
-
-              <SecurityItem
-                icon={<FaServer />}
-                color="green"
-                title="Secure Session"
-                status="Active"
-                description="Protected application session."
-              />
+              </div>
 
             </div>
 
 
             {/* =================================================
-                LAST SECURITY CHECK
+                ALGORITHM SECTION
             ================================================= */}
 
-            <div className="security-last-check">
+            <section className="algorithm-section">
 
-              <span>
-                Last security check
-              </span>
+              <div className="section-heading">
 
-              <strong>
+                <div>
 
-                Today,{" "}
+                  <span>
+                    CRYPTOGRAPHIC ARCHITECTURE
+                  </span>
 
-                {new Date().toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
+                  <h3>
+                    Active Security Algorithms
+                  </h3>
 
-              </strong>
+                </div>
 
-            </div>
+                <div className="architecture-line"></div>
+
+              </div>
+
+
+              <div className="algorithm-grid">
+
+
+                {/* AES */}
+
+                <AlgorithmCard
+                  number="01"
+                  icon={<FaLock />}
+                  name="AES-256"
+                  type="SYMMETRIC ENCRYPTION"
+                  description="Encrypts file content using 256-bit Advanced Encryption Standard."
+                  protectedText="FILE DATA"
+                />
+
+
+                {/* KYBER */}
+
+                <AlgorithmCard
+                  number="02"
+                  icon={<FaAtom />}
+                  name="CRYSTALS-Kyber"
+                  type="POST-QUANTUM KEM"
+                  description="Protects encryption keys using quantum-resistant key encapsulation."
+                  protectedText="KEY EXCHANGE"
+                />
+
+
+                {/* DILITHIUM */}
+
+                <AlgorithmCard
+                  number="03"
+                  icon={<FaFingerprint />}
+                  name="CRYSTALS-Dilithium"
+                  type="POST-QUANTUM SIGNATURE"
+                  description="Provides quantum-resistant digital signatures for file authenticity."
+                  protectedText="SIGNATURE"
+                />
+
+
+                {/* RSA */}
+
+                <AlgorithmCard
+                  number="04"
+                  icon={<FaKey />}
+                  name="RSA"
+                  type="CLASSICAL CRYPTOGRAPHY"
+                  description="Provides an additional classical cryptographic layer for secure key protection."
+                  protectedText="KEY PROTECTION"
+                />
+
+
+                {/* JWT */}
+
+                <AlgorithmCard
+                  number="05"
+                  icon={<FaUserShield />}
+                  name="JWT"
+                  type="IDENTITY SECURITY"
+                  description="Secures authenticated communication between the client and server."
+                  protectedText="USER IDENTITY"
+                />
+
+
+                {/* SESSION */}
+
+                <AlgorithmCard
+                  number="06"
+                  icon={<FaServer />}
+                  name="Secure Session"
+                  type="APPLICATION SECURITY"
+                  description="Maintains protected authenticated sessions between users and the application."
+                  protectedText="SESSION"
+                />
+
+              </div>
+
+            </section>
 
 
             {/* =================================================
-                VIEW SECURITY DETAILS
+                SECURITY FOOTER
             ================================================= */}
 
-            <button
-              className="security-details-btn"
-              type="button"
-              onClick={handleSecurityDetails}
-            >
+            <div className="security-footer">
 
-              <span>
+              <div className="last-check">
 
-                <FaShieldAlt />
+                <span className="check-dot"></span>
 
-                View Security Details
+                <div>
 
-              </span>
+                  <small>
+                    LAST SECURITY CHECK
+                  </small>
+
+                  <strong>
+                    Today,{" "}
+                    {new Date().toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </strong>
+
+                </div>
+
+              </div>
 
 
-              <FaArrowRight />
+              <button
+                className="security-details-btn"
+                type="button"
+                onClick={handleSecurityDetails}
+              >
 
-            </button>
+                <span>
+
+                  <FaBolt />
+
+                  View Full Cryptographic Details
+
+                </span>
+
+                <FaArrowRight />
+
+              </button>
+
+            </div>
 
           </div>
 
@@ -709,5 +666,81 @@ function Sidebar({ collapsed, setCollapsed }) {
 
 
 /* =========================================================
-   SECURITY ITEM COMPONENT
+   ALGORITHM CARD COMPONENT
+========================================================= */
+
+function AlgorithmCard({
+  number,
+  icon,
+  name,
+  type,
+  description,
+  protectedText,
+}) {
+
+  return (
+
+    <div className="algorithm-card">
+
+      <div className="algorithm-card-top">
+
+        <span className="algorithm-number">
+          / {number}
+        </span>
+
+        <span className="algorithm-status">
+
+          <span></span>
+
+          ACTIVE
+
+        </span>
+
+      </div>
+
+
+      <div className="algorithm-icon">
+        {icon}
+      </div>
+
+
+      <div className="algorithm-info">
+
+        <h4>
+          {name}
+        </h4>
+
+        <span className="algorithm-type">
+          {type}
+        </span>
+
+        <p>
+          {description}
+        </p>
+
+      </div>
+
+
+      <div className="algorithm-line"></div>
+
+
+      <div className="algorithm-protected">
+
+        <span>
+          PROTECTING · {protectedText}
+        </span>
+
+        <span className="algorithm-check">
+          ✓
+        </span>
+
+      </div>
+
+    </div>
+
+  );
+
+}
+
+
 export default Sidebar;
