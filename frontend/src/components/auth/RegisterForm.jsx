@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import "./RegisterForm.css";
 
 import {
@@ -8,6 +9,9 @@ import {
   FaEye,
   FaEyeSlash,
   FaArrowRight,
+  FaShieldAlt,
+  FaCircle,
+  FaCheck,
 } from "react-icons/fa";
 
 import authApi from "../../api/authApi";
@@ -19,15 +23,22 @@ function RegisterForm({ onSwitch }) {
   const [email, setEmail] = useState("");
 
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] =
+    useState("");
 
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] =
+    useState(false);
+
   const [showConfirmPassword, setShowConfirmPassword] =
     useState(false);
 
   const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
+
+  const [errorMessage, setErrorMessage] =
+    useState("");
+
+  const [successMessage, setSuccessMessage] =
+    useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -35,7 +46,6 @@ function RegisterForm({ onSwitch }) {
     setErrorMessage("");
     setSuccessMessage("");
 
-    // Validate required fields
     if (
       !firstName.trim() ||
       !lastName.trim() ||
@@ -44,17 +54,19 @@ function RegisterForm({ onSwitch }) {
       !password ||
       !confirmPassword
     ) {
-      setErrorMessage("Please fill in all required fields.");
+      setErrorMessage(
+        "Please complete all required fields."
+      );
       return;
     }
 
-    // Validate password confirmation
     if (password !== confirmPassword) {
-      setErrorMessage("Passwords do not match.");
+      setErrorMessage(
+        "Passwords do not match."
+      );
       return;
     }
 
-    // Basic password validation
     if (password.length < 8) {
       setErrorMessage(
         "Password must contain at least 8 characters."
@@ -65,87 +77,59 @@ function RegisterForm({ onSwitch }) {
     try {
       setLoading(true);
 
-      const registrationData = {
+      await authApi.register({
         firstName: firstName.trim(),
         lastName: lastName.trim(),
         username: username.trim(),
         email: email.trim(),
         password,
-      };
-
-      console.log("========== REGISTRATION ==========");
-      console.log("Registering user:", {
-        firstName: registrationData.firstName,
-        lastName: registrationData.lastName,
-        username: registrationData.username,
-        email: registrationData.email,
       });
-      console.log("===================================");
 
-      // Call the real Spring Boot registration API.
-      await authApi.register(registrationData);
-
-      /*
-       * Registration succeeded.
-       *
-       * We do NOT automatically log the user in because
-       * the backend registration and login APIs are separate.
-       *
-       * Auth.jsx controls the Login/Register flip card.
-       * Calling onSwitch() changes the card back to Login.
-       */
       setSuccessMessage(
-        "Account created successfully! Please login."
+        "Identity created successfully. Redirecting to secure login..."
       );
 
-      // Clear password fields.
       setPassword("");
       setConfirmPassword("");
 
-      // Give the user a moment to see the success message,
-      // then switch to the Login form.
       setTimeout(() => {
         onSwitch();
-      }, 1000);
+      }, 1400);
 
     } catch (error) {
-      console.error("========== REGISTRATION ERROR ==========");
-      console.error("Error:", error);
-      console.error("Message:", error.message);
-      console.error("Code:", error.code);
-      console.error("Response:", error.response);
-      console.error("Request:", error.request);
-      console.error("========================================");
+      console.error("REGISTRATION ERROR:", error);
 
       if (!error.response) {
         setErrorMessage(
           "Unable to connect to the backend. Please make sure the server is running."
         );
-      } else if (error.response.status === 400) {
-        const backendMessage =
+      } else if (
+        error.response.status === 400
+      ) {
+        setErrorMessage(
           error.response.data?.message ||
-          error.response.data?.error ||
-          "Please check the information you entered.";
-
-        setErrorMessage(backendMessage);
-      } else if (error.response.status === 409) {
-        const backendMessage =
+            error.response.data?.error ||
+            "Please check the information entered."
+        );
+      } else if (
+        error.response.status === 409
+      ) {
+        setErrorMessage(
           error.response.data?.message ||
-          "An account with these details already exists.";
-
-        setErrorMessage(backendMessage);
-      } else if (error.response.status === 422) {
-        const backendMessage =
+            "An account with these details already exists."
+        );
+      } else if (
+        error.response.status === 422
+      ) {
+        setErrorMessage(
           error.response.data?.message ||
-          "The provided registration information is invalid.";
-
-        setErrorMessage(backendMessage);
+            "The registration information is invalid."
+        );
       } else {
-        const backendMessage =
+        setErrorMessage(
           error.response.data?.message ||
-          "Registration failed. Please try again.";
-
-        setErrorMessage(backendMessage);
+            "Registration failed. Please try again."
+        );
       }
     } finally {
       setLoading(false);
@@ -155,240 +139,383 @@ function RegisterForm({ onSwitch }) {
   return (
     <div className="register-form">
 
-      <h2>Create Account</h2>
+      {/* =================================================
+          HEADER
+      ================================================= */}
+
+      <div className="register-top">
+
+        <div className="auth-brand-mark register-brand">
+
+          <div className="auth-brand-icon">
+            <FaShieldAlt />
+          </div>
+
+          <div>
+            <span>QUANTUMSAFE</span>
+            <small>IDENTITY INITIALIZATION</small>
+          </div>
+
+        </div>
+
+        <div className="register-code">
+          02 / 02
+        </div>
+
+      </div>
+
+      <div className="register-heading">
+
+        <div className="register-eyebrow">
+          <FaCircle />
+          NEW SECURITY IDENTITY
+        </div>
+
+        <h2>
+          Create <span>Account.</span>
+        </h2>
+
+        <p>
+          Initialize your secure identity and
+          enter the QuantumSafe network.
+        </p>
+
+      </div>
 
       <form onSubmit={handleSubmit}>
 
-        {/* Error Message */}
+        {/* =================================================
+            MESSAGES
+        ================================================= */}
 
         {errorMessage && (
           <div
-            style={{
-              padding: "12px 14px",
-              marginBottom: "15px",
-              borderRadius: "10px",
-              background: "rgba(239, 68, 68, 0.12)",
-              border: "1px solid rgba(239, 68, 68, 0.35)",
-              color: "#FCA5A5",
-              fontSize: "14px",
-            }}
+            className="auth-message register-error"
             role="alert"
           >
+            <span className="message-dot"></span>
             {errorMessage}
           </div>
         )}
 
-        {/* Success Message */}
-
         {successMessage && (
           <div
-            style={{
-              padding: "12px 14px",
-              marginBottom: "15px",
-              borderRadius: "10px",
-              background: "rgba(34, 197, 94, 0.12)",
-              border: "1px solid rgba(34, 197, 94, 0.35)",
-              color: "#86EFAC",
-              fontSize: "14px",
-            }}
+            className="auth-message register-success"
             role="status"
           >
+            <FaCheck />
             {successMessage}
           </div>
         )}
 
-        {/* First Name */}
+        {/* =================================================
+            NAME ROW
+        ================================================= */}
 
-        <div className="input-group">
+        <div className="register-two-column">
 
-          <FaUser className="input-icon" />
+          <div className="auth-field">
 
-          <input
-            type="text"
-            placeholder="First Name"
-            value={firstName}
-            onChange={(event) =>
-              setFirstName(event.target.value)
-            }
-            autoComplete="given-name"
-            disabled={loading}
-            required
-          />
+            <label htmlFor="first-name">
+              FIRST NAME
+            </label>
 
-        </div>
+            <div className="input-group">
 
-        {/* Last Name */}
+              <FaUser className="input-icon" />
 
-        <div className="input-group">
+              <input
+                id="first-name"
+                type="text"
+                placeholder="First name"
+                value={firstName}
+                onChange={(e) =>
+                  setFirstName(e.target.value)
+                }
+                autoComplete="given-name"
+                disabled={loading}
+                required
+              />
 
-          <FaUser className="input-icon" />
+            </div>
 
-          <input
-            type="text"
-            placeholder="Last Name"
-            value={lastName}
-            onChange={(event) =>
-              setLastName(event.target.value)
-            }
-            autoComplete="family-name"
-            disabled={loading}
-            required
-          />
+          </div>
 
-        </div>
+          <div className="auth-field">
 
-        {/* Username */}
+            <label htmlFor="last-name">
+              LAST NAME
+            </label>
 
-        <div className="input-group">
+            <div className="input-group">
 
-          <FaUser className="input-icon" />
+              <FaUser className="input-icon" />
 
-          <input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(event) =>
-              setUsername(event.target.value)
-            }
-            autoComplete="username"
-            disabled={loading}
-            required
-          />
+              <input
+                id="last-name"
+                type="text"
+                placeholder="Last name"
+                value={lastName}
+                onChange={(e) =>
+                  setLastName(e.target.value)
+                }
+                autoComplete="family-name"
+                disabled={loading}
+                required
+              />
 
-        </div>
+            </div>
 
-        {/* Email */}
-
-        <div className="input-group">
-
-          <FaEnvelope className="input-icon" />
-
-          <input
-            type="email"
-            placeholder="Email Address"
-            value={email}
-            onChange={(event) =>
-              setEmail(event.target.value)
-            }
-            autoComplete="email"
-            disabled={loading}
-            required
-          />
+          </div>
 
         </div>
 
-        {/* Password */}
+        {/* USERNAME */}
 
-        <div className="input-group">
+        <div className="auth-field">
 
-          <FaLock className="input-icon" />
+          <label htmlFor="username">
+            USERNAME
+          </label>
 
-          <input
-            type={showPassword ? "text" : "password"}
-            placeholder="Password"
-            value={password}
-            onChange={(event) =>
-              setPassword(event.target.value)
-            }
-            autoComplete="new-password"
-            disabled={loading}
-            required
-          />
+          <div className="input-group">
 
-          <button
-            type="button"
-            className="eye-btn"
-            onClick={() =>
-              setShowPassword(!showPassword)
-            }
-            disabled={loading}
-            aria-label={
-              showPassword
-                ? "Hide password"
-                : "Show password"
-            }
-          >
-            {showPassword ? (
-              <FaEyeSlash />
-            ) : (
-              <FaEye />
-            )}
-          </button>
+            <FaUser className="input-icon" />
+
+            <input
+              id="username"
+              type="text"
+              placeholder="Choose a username"
+              value={username}
+              onChange={(e) =>
+                setUsername(e.target.value)
+              }
+              autoComplete="username"
+              disabled={loading}
+              required
+            />
+
+          </div>
 
         </div>
 
-        {/* Confirm Password */}
+        {/* EMAIL */}
 
-        <div className="input-group">
+        <div className="auth-field">
 
-          <FaLock className="input-icon" />
+          <label htmlFor="register-email">
+            EMAIL ADDRESS
+          </label>
 
-          <input
-            type={
-              showConfirmPassword
-                ? "text"
-                : "password"
-            }
-            placeholder="Confirm Password"
-            value={confirmPassword}
-            onChange={(event) =>
-              setConfirmPassword(event.target.value)
-            }
-            autoComplete="new-password"
-            disabled={loading}
-            required
-          />
+          <div className="input-group">
 
-          <button
-            type="button"
-            className="eye-btn"
-            onClick={() =>
-              setShowConfirmPassword(
-                !showConfirmPassword
-              )
-            }
-            disabled={loading}
-            aria-label={
-              showConfirmPassword
-                ? "Hide confirm password"
-                : "Show confirm password"
-            }
-          >
-            {showConfirmPassword ? (
-              <FaEyeSlash />
-            ) : (
-              <FaEye />
-            )}
-          </button>
+            <FaEnvelope className="input-icon" />
+
+            <input
+              id="register-email"
+              type="email"
+              placeholder="you@example.com"
+              value={email}
+              onChange={(e) =>
+                setEmail(e.target.value)
+              }
+              autoComplete="email"
+              disabled={loading}
+              required
+            />
+
+          </div>
 
         </div>
 
-        {/* Register Button */}
+        {/* PASSWORD */}
+
+        <div className="register-password-row">
+
+          <div className="auth-field">
+
+            <label htmlFor="register-password">
+              PASSWORD
+            </label>
+
+            <div className="input-group">
+
+              <FaLock className="input-icon" />
+
+              <input
+                id="register-password"
+                type={
+                  showPassword
+                    ? "text"
+                    : "password"
+                }
+                placeholder="Min. 8 characters"
+                value={password}
+                onChange={(e) =>
+                  setPassword(e.target.value)
+                }
+                autoComplete="new-password"
+                disabled={loading}
+                required
+              />
+
+              <button
+                type="button"
+                className="eye-btn"
+                onClick={() =>
+                  setShowPassword(!showPassword)
+                }
+                disabled={loading}
+              >
+                {showPassword ? (
+                  <FaEyeSlash />
+                ) : (
+                  <FaEye />
+                )}
+              </button>
+
+            </div>
+
+          </div>
+
+          <div className="auth-field">
+
+            <label htmlFor="confirm-password">
+              CONFIRM
+            </label>
+
+            <div className="input-group">
+
+              <FaLock className="input-icon" />
+
+              <input
+                id="confirm-password"
+                type={
+                  showConfirmPassword
+                    ? "text"
+                    : "password"
+                }
+                placeholder="Repeat password"
+                value={confirmPassword}
+                onChange={(e) =>
+                  setConfirmPassword(e.target.value)
+                }
+                autoComplete="new-password"
+                disabled={loading}
+                required
+              />
+
+              <button
+                type="button"
+                className="eye-btn"
+                onClick={() =>
+                  setShowConfirmPassword(
+                    !showConfirmPassword
+                  )
+                }
+                disabled={loading}
+              >
+                {showConfirmPassword ? (
+                  <FaEyeSlash />
+                ) : (
+                  <FaEye />
+                )}
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        {/* PASSWORD STATUS */}
+
+        <div className="password-security">
+
+          <div className="password-security-line">
+            <span
+              className={
+                password.length >= 8
+                  ? "active"
+                  : ""
+              }
+            ></span>
+
+            <span
+              className={
+                password.length >= 12
+                  ? "active"
+                  : ""
+              }
+            ></span>
+
+            <span
+              className={
+                /[A-Z]/.test(password) &&
+                /[0-9]/.test(password)
+                  ? "active"
+                  : ""
+              }
+            ></span>
+          </div>
+
+          <span>
+            {password.length >= 8
+              ? "PASSWORD REQUIREMENTS SATISFIED"
+              : "MINIMUM 8 CHARACTERS"}
+          </span>
+
+        </div>
+
+        {/* BUTTON */}
 
         <button
           className="register-btn"
           type="submit"
           disabled={loading}
         >
-          {loading
-            ? "Creating Account..."
-            : "Create Account"}
+
+          <span>
+            {loading
+              ? "Initializing Identity..."
+              : "Create Secure Account"}
+          </span>
 
           {!loading && <FaArrowRight />}
+
         </button>
 
       </form>
 
-      {/* Switch to Login */}
+      {/* SWITCH */}
 
-      <button
-        className="login-switch"
-        type="button"
-        onClick={onSwitch}
-        disabled={loading}
-      >
-        Already have an account?
-      </button>
+      <div className="auth-switch">
+
+        <span>
+          Already have a QuantumSafe identity?
+        </span>
+
+        <button
+          type="button"
+          onClick={onSwitch}
+          disabled={loading}
+        >
+          Sign In
+        </button>
+
+      </div>
+
+      <div className="auth-security-footer">
+
+        <FaShieldAlt />
+
+        <span>HYBRID ENCRYPTION</span>
+
+        <i></i>
+
+        <span>QUANTUM-RESISTANT</span>
+
+      </div>
 
     </div>
   );

@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import MainLayout from "../../layouts/MainLayout";
+
 import {
   FaCloudUploadAlt,
   FaFile,
@@ -227,7 +227,6 @@ function SendFile() {
   };
 
   return (
-    <MainLayout>
     <div className="send-file-page">
 
       {/* =========================
@@ -637,7 +636,7 @@ function SendFile() {
       </div>
 
     </div>
-    </MainLayout>
+
   );
 }
 
