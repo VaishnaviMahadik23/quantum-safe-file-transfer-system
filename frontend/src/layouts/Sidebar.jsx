@@ -667,7 +667,6 @@ function Sidebar({ collapsed, setCollapsed }) {
 
 /* =========================================================
    ALGORITHM CARD COMPONENT
-========================================================= */
 
 function AlgorithmCard({
   number,
@@ -743,4 +742,5 @@ function AlgorithmCard({
 }
 
 
+   SECURITY ITEM COMPONENT*/
 export default Sidebar;

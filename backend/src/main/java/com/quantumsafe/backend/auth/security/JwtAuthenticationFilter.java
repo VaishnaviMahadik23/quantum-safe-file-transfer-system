@@ -19,7 +19,6 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
-
     private final CustomUserDetailsService userDetailsService;
 
     @Override
@@ -29,27 +28,43 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             FilterChain filterChain
     ) throws ServletException, IOException {
 
+        System.out.println();
+        System.out.println("========== JWT FILTER ==========");
+        System.out.println("Request: " + request.getMethod() + " " + request.getRequestURI());
+
         final String authorizationHeader =
                 request.getHeader("Authorization");
+
+        System.out.println("Authorization Header Present: "
+                + (authorizationHeader != null));
 
         String username = null;
         String jwt = null;
 
-        // Check Authorization header
         if (authorizationHeader != null
                 && authorizationHeader.startsWith("Bearer ")) {
 
             jwt = authorizationHeader.substring(7);
 
+            System.out.println("Bearer token detected");
+            System.out.println("Token length: " + jwt.length());
+
             try {
+
                 username = jwtService.extractUsername(jwt);
+
+                System.out.println("JWT username: " + username);
+
             } catch (Exception e) {
-                // Invalid JWT
-                // Continue filter chain without authentication
+
+                System.out.println("JWT extraction FAILED");
+                System.out.println("Reason: " + e.getMessage());
             }
+        } else {
+
+            System.out.println("No valid Bearer token found");
         }
 
-        // Authenticate user if token is valid
         if (username != null
                 && SecurityContextHolder
                 .getContext()
@@ -60,10 +75,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 UserDetails userDetails =
                         userDetailsService.loadUserByUsername(username);
 
-                if (jwtService.isTokenValid(
-                        jwt,
-                        userDetails.getUsername()
-                )) {
+                System.out.println(
+                        "User loaded: " + userDetails.getUsername()
+                );
+
+                boolean valid =
+                        jwtService.isTokenValid(
+                                jwt,
+                                userDetails.getUsername()
+                        );
+
+                System.out.println("JWT valid: " + valid);
+
+                if (valid) {
 
                     UsernamePasswordAuthenticationToken authentication =
                             new UsernamePasswordAuthenticationToken(
@@ -80,12 +104,33 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     SecurityContextHolder
                             .getContext()
                             .setAuthentication(authentication);
+
+                    System.out.println(
+                            "AUTHENTICATION SET SUCCESSFULLY"
+                    );
                 }
 
             } catch (Exception e) {
-                // Authentication failed
+
+                System.out.println("Authentication FAILED");
+                System.out.println(
+                        "Reason: " + e.getClass().getName()
+                );
+                System.out.println(
+                        "Message: " + e.getMessage()
+                );
             }
         }
+
+        System.out.println(
+                "SecurityContext authentication: "
+                        + SecurityContextHolder
+                        .getContext()
+                        .getAuthentication()
+        );
+
+        System.out.println("================================");
+        System.out.println();
 
         filterChain.doFilter(request, response);
     }
