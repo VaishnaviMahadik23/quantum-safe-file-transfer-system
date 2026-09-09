@@ -12,6 +12,12 @@ import javax.crypto.spec.GCMParameterSpec;
 import java.security.SecureRandom;
 
 import javax.crypto.spec.SecretKeySpec;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+
+import java.security.PublicKey;
+import javax.crypto.KEM;
+import java.security.PrivateKey;
 
 @Service
 public class CryptoService {
@@ -102,6 +108,75 @@ public class CryptoService {
         } catch (Exception e) {
             throw new RuntimeException(
                     "AES-256-GCM decryption failed",
+                    e
+            );
+        }
+    }
+
+    public KeyPair generateMlKem768KeyPair() {
+        try {
+            KeyPairGenerator keyPairGenerator =
+                    KeyPairGenerator.getInstance("ML-KEM-768", "BC");
+
+            return keyPairGenerator.generateKeyPair();
+
+        } catch (Exception e) {
+            throw new RuntimeException(
+                    "ML-KEM-768 key pair generation failed",
+                    e
+            );
+        }
+    }
+
+    public byte[][] encapsulateMlKem(PublicKey receiverPublicKey) {
+
+        try {
+            KEM kem = KEM.getInstance("ML-KEM", "BC");
+
+            KEM.Encapsulator encapsulator =
+                    kem.newEncapsulator(receiverPublicKey);
+
+            KEM.Encapsulated encapsulated =
+                    encapsulator.encapsulate();
+
+            byte[] sharedSecret =
+                    encapsulated.key().getEncoded();
+
+            byte[] kemCiphertext =
+                    encapsulated.encapsulation();
+
+            return new byte[][]{
+                    sharedSecret,
+                    kemCiphertext
+            };
+
+        } catch (Exception e) {
+            throw new RuntimeException(
+                    "ML-KEM-768 encapsulation failed",
+                    e
+            );
+        }
+    }
+
+
+    public byte[] decapsulateMlKem(
+            PrivateKey receiverPrivateKey,
+            byte[] kemCiphertext
+        ) {
+        try {
+            KEM kem = KEM.getInstance("ML-KEM", "BC");
+
+            KEM.Decapsulator decapsulator =
+                    kem.newDecapsulator(receiverPrivateKey);
+
+            SecretKey sharedSecret =
+                    decapsulator.decapsulate(kemCiphertext);
+
+            return sharedSecret.getEncoded();
+
+        } catch (Exception e) {
+            throw new RuntimeException(
+                    "ML-KEM-768 decapsulation failed",
                     e
             );
         }

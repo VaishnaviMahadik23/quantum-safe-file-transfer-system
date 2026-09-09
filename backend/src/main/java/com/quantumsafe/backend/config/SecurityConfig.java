@@ -109,6 +109,10 @@ public class SecurityConfig {
                         .requestMatchers("/api/crypto/hash").permitAll()
                         .requestMatchers("/api/crypto/encrypt").permitAll()
                         .requestMatchers("/api/crypto/decrypt").permitAll()
+                        .requestMatchers("/api/crypto/mlkem-keypair").permitAll()
+                        .requestMatchers("/api/crypto/mlkem-encapsulate").permitAll()
+                        .requestMatchers("/api/crypto/mlkem-test").permitAll()
+
 
                         // Public authentication endpoints
                         .requestMatchers(
