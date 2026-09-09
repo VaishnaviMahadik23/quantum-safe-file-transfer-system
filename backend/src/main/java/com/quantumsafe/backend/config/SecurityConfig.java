@@ -105,6 +105,10 @@ public class SecurityConfig {
                                 HttpMethod.OPTIONS,
                                 "/**"
                         ).permitAll()
+                        
+                        .requestMatchers("/api/crypto/hash").permitAll()
+                        .requestMatchers("/api/crypto/encrypt").permitAll()
+                        .requestMatchers("/api/crypto/decrypt").permitAll()
 
                         // Public authentication endpoints
                         .requestMatchers(
