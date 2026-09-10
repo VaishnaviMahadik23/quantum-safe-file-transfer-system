@@ -179,4 +179,111 @@ public class CryptoTestController {
             
         return response;
     }
+
+
+            @GetMapping("/api/crypto/key-wrap-test")
+        public Map<String, Object> testKeyWrapping() {
+
+            // 1. Create some test data and encrypt it with AES-256-GCM
+            byte[][] aesResult = cryptoService.encryptAesGcm(
+                    "hello quantum".getBytes(StandardCharsets.UTF_8)
+            );
+
+            byte[] encryptedData = aesResult[0];
+            byte[] originalAesKey = aesResult[1];
+            byte[] fileIv = aesResult[2];
+
+            // 2. Generate receiver ML-KEM-768 key pair
+            KeyPair receiverKeyPair =
+                    cryptoService.generateMlKem768KeyPair();
+
+            // 3. Sender performs ML-KEM encapsulation
+            byte[][] kemResult =
+                    cryptoService.encapsulateMlKem(
+                            receiverKeyPair.getPublic()
+                    );
+
+            byte[] senderSharedSecret = kemResult[0];
+            byte[] kemCiphertext = kemResult[1];
+
+            // 4. Sender derives wrapping key using HKDF
+            byte[] senderWrappingKey =
+                    cryptoService.deriveWrappingKey(
+                            senderSharedSecret
+                    );
+
+            // 5. Wrap the AES file key
+            byte[][] wrappedResult =
+                    cryptoService.wrapAesKey(
+                            originalAesKey,
+                            senderWrappingKey
+                    );
+
+            byte[] wrappedAesKey = wrappedResult[0];
+            byte[] wrapIv = wrappedResult[1];
+
+            // 6. Receiver decapsulates ML-KEM ciphertext
+            byte[] receiverSharedSecret =
+                    cryptoService.decapsulateMlKem(
+                            receiverKeyPair.getPrivate(),
+                            kemCiphertext
+                    );
+
+            // 7. Receiver derives the same wrapping key
+            byte[] receiverWrappingKey =
+                    cryptoService.deriveWrappingKey(
+                            receiverSharedSecret
+                    );
+
+            // 8. Receiver unwraps the AES key
+            byte[] recoveredAesKey =
+                    cryptoService.unwrapAesKey(
+                            wrappedAesKey,
+                            receiverWrappingKey,
+                            wrapIv
+                    );
+
+            // 9. Use recovered AES key to decrypt original data
+            byte[] decryptedData =
+                    cryptoService.decryptAesGcm(
+                            encryptedData,
+                            recoveredAesKey,
+                            fileIv
+                    );
+
+            boolean sharedSecretsMatch =
+                    Arrays.equals(
+                            senderSharedSecret,
+                            receiverSharedSecret
+                    );
+
+            boolean aesKeysMatch =
+                    Arrays.equals(
+                            originalAesKey,
+                            recoveredAesKey
+                    );
+
+            Map<String, Object> response = new HashMap<>();
+
+            response.put(
+                    "sharedSecretsMatch",
+                    sharedSecretsMatch
+            );
+
+            response.put(
+                    "aesKeysMatch",
+                    aesKeysMatch
+            );
+
+            response.put(
+                    "decryptedText",
+                    new String(
+                            decryptedData,
+                            StandardCharsets.UTF_8
+                    )
+            );
+
+            return response;
+        }
+        
 }

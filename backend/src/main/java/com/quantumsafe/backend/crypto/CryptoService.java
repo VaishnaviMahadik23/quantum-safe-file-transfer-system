@@ -19,6 +19,12 @@ import java.security.PublicKey;
 import javax.crypto.KEM;
 import java.security.PrivateKey;
 
+
+import org.bouncycastle.crypto.digests.SHA256Digest;
+import org.bouncycastle.crypto.generators.HKDFBytesGenerator;
+import org.bouncycastle.crypto.params.HKDFParameters;
+
+
 @Service
 public class CryptoService {
 
@@ -181,5 +187,126 @@ public class CryptoService {
             );
         }
     }
+
+    public byte[] deriveWrappingKey(byte[] sharedSecret) {
+        try {
+            HKDFBytesGenerator hkdf =
+                    new HKDFBytesGenerator(new SHA256Digest());
+
+            byte[] info =
+                    "quantum-safe-file-key-wrapping"
+                            .getBytes(java.nio.charset.StandardCharsets.UTF_8);
+
+            HKDFParameters parameters =
+                    new HKDFParameters(
+                            sharedSecret,
+                            null,
+                            info
+                    );
+
+            hkdf.init(parameters);
+
+            byte[] derivedKey = new byte[32];
+
+            hkdf.generateBytes(
+                    derivedKey,
+                    0,
+                    derivedKey.length
+            );
+
+            return derivedKey;
+
+        } catch (Exception e) {
+            throw new RuntimeException(
+                    "HKDF-SHA-256 key derivation failed",
+                    e
+            );
+        }
+    }
+
+        public byte[][] wrapAesKey(
+                byte[] aesKeyBytes,
+                byte[] wrappingKeyBytes
+                ) {
+            try {
+                SecretKey wrappingKey =
+                        new SecretKeySpec(
+                                wrappingKeyBytes,
+                                "AES"
+                        );
+
+                byte[] wrapIv = new byte[12];
+
+                SecureRandom secureRandom = new SecureRandom();
+                secureRandom.nextBytes(wrapIv);
+
+                Cipher cipher =
+                        Cipher.getInstance("AES/GCM/NoPadding");
+
+                GCMParameterSpec gcmSpec =
+                        new GCMParameterSpec(
+                                128,
+                                wrapIv
+                        );
+
+                cipher.init(
+                        Cipher.ENCRYPT_MODE,
+                        wrappingKey,
+                        gcmSpec
+                );
+
+                byte[] wrappedAesKey =
+                        cipher.doFinal(aesKeyBytes);
+
+                return new byte[][]{
+                        wrappedAesKey,
+                        wrapIv
+                };
+
+            } catch (Exception e) {
+                throw new RuntimeException(
+                        "AES key wrapping failed",
+                        e
+                );
+            }
+        }
+
+        public byte[] unwrapAesKey(
+        byte[] wrappedAesKey,
+        byte[] wrappingKeyBytes,
+        byte[] wrapIv
+        ) {
+        try {
+        SecretKey wrappingKey =
+                new SecretKeySpec(
+                        wrappingKeyBytes,
+                        "AES"
+                );
+
+        Cipher cipher =
+                Cipher.getInstance("AES/GCM/NoPadding");
+
+        GCMParameterSpec gcmSpec =
+                new GCMParameterSpec(
+                        128,
+                        wrapIv
+                );
+
+        cipher.init(
+                Cipher.DECRYPT_MODE,
+                wrappingKey,
+                gcmSpec
+        );
+
+        return cipher.doFinal(wrappedAesKey);
+
+            } catch (Exception e) {
+                throw new RuntimeException(
+                        "AES key unwrapping failed",
+                        e
+                );
+            }
+        }
+
 
 }
