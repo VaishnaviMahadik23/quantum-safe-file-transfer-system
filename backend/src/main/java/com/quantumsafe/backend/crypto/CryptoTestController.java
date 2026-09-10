@@ -285,5 +285,93 @@ public class CryptoTestController {
 
             return response;
         }
+
+        @GetMapping("/api/crypto/hash-verify-test")
+        public Map<String, Object> testHashVerification() {
+
+            byte[] originalData =
+                    "hello quantum".getBytes(StandardCharsets.UTF_8);
+
+            // Generate hash of original data
+            String originalHash =
+                    cryptoService.sha3_256(originalData);
+
+            // Verify original data
+            boolean originalValid =
+                    cryptoService.verifySha3_256(
+                            originalData,
+                            originalHash
+                    );
+
+            // Simulate someone modifying the data
+            byte[] modifiedData =
+                    "hello quantum modified"
+                            .getBytes(StandardCharsets.UTF_8);
+
+            // Verify modified data against original hash
+            boolean modifiedValid =
+                    cryptoService.verifySha3_256(
+                            modifiedData,
+                            originalHash
+                    );
+
+            Map<String, Object> response = new HashMap<>();
+
+            response.put("originalValid", originalValid);
+            response.put("modifiedValid", modifiedValid);
+            response.put("hash", originalHash);
+
+            return response;
+        }
+        
+
+        @GetMapping("/api/crypto/mldsa-test")
+        public Map<String, Object> testMlDsa() {
+
+            // 1. Generate sender's ML-DSA-65 key pair
+            KeyPair senderKeyPair =
+                    cryptoService.generateMlDsa65KeyPair();
+
+            // 2. Original test data
+            byte[] originalData =
+                    "hello quantum"
+                            .getBytes(StandardCharsets.UTF_8);
+
+            // 3. Sender signs using PRIVATE key
+            byte[] digitalSignature =
+                    cryptoService.signWithMlDsa(
+                            originalData,
+                            senderKeyPair.getPrivate()
+                    );
+
+            // 4. Receiver verifies using sender's PUBLIC key
+            boolean originalValid =
+                    cryptoService.verifyMlDsaSignature(
+                            originalData,
+                            digitalSignature,
+                            senderKeyPair.getPublic()
+                    );
+
+            // 5. Simulate modified data
+            byte[] modifiedData =
+                    "hello quantum modified"
+                            .getBytes(StandardCharsets.UTF_8);
+
+            // 6. Try same signature on modified data
+            boolean modifiedValid =
+                    cryptoService.verifyMlDsaSignature(
+                            modifiedData,
+                    digitalSignature,
+                    senderKeyPair.getPublic()
+            );
+
+            Map<String, Object> response = new HashMap<>();
+
+            response.put("originalSignatureValid", originalValid);
+            response.put("modifiedSignatureValid", modifiedValid);
+            response.put("signatureLength", digitalSignature.length);
+
+            return response;
+        }
         
 }

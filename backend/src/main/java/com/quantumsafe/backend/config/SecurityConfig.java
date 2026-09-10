@@ -123,7 +123,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/crypto/mlkem-test").permitAll()
                         .requestMatchers("/api/crypto/key-wrap-test").permitAll()
 
-
+                        .requestMatchers("/api/crypto/hash-verify-test").permitAll()
+                        .requestMatchers("/api/crypto/mldsa-test").permitAll()
 
                         // Public authentication endpoints
                         .requestMatchers(
