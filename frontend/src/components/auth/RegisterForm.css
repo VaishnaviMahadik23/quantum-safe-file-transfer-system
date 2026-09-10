@@ -1,194 +1,626 @@
-.register-form{
+/* =========================================================
+   QUANTUMSAFE REGISTER
+========================================================= */
 
-    height:100%;
+.register-form {
+  height: 100%;
 
-    padding:50px 40px;
+  padding: 30px 42px 24px;
 
-    display:flex;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
-    flex-direction:column;
-
-    justify-content:center;
-
+  color: #f8fafc;
 }
 
-.register-form h2{
+/* =========================================================
+   TOP
+========================================================= */
 
-    font-size:30px;
+.register-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    color:white;
-
-    font-weight: bold;
-    margin-bottom:12px;
-
+  margin-bottom: 15px;
 }
 
-.register-form p{
-
-    color:#94A3B8;
-
-    margin-bottom:30px;
-
-    line-height:1.7;
-
+.register-brand {
+  margin-bottom: 0;
 }
 
-.register-form form{
+.register-code {
+  color: #475569;
 
-    display:flex;
+  font-size: 7px;
+  font-weight: 800;
 
-    flex-direction:column;
-
-    gap:18px;
-
+  letter-spacing: 1.2px;
 }
 
-/* Input */
+/* =========================================================
+   BRAND
+========================================================= */
 
-.input-group{
-
-    position:relative;
-
+.auth-brand-mark {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.input-group input{
+.auth-brand-icon {
+  width: 34px;
+  height: 34px;
 
-    width:100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    height:50px;
+  border-radius: 10px;
 
-    padding-left:50px;
+  color: #a78bfa;
 
-    padding-right:50px;
-
-    border:none;
-
-    outline:none;
-
-    border-radius:15px;
-
-    background:#0F172A;
-
-    border:1px solid #334155;
-
-    color:white;
-
-    font-size:15px;
-
-    transition:.3s;
-
-}
-
-.input-group input:focus{
-
-    border-color:#3B82F6;
-
-    box-shadow:0 0 15px rgba(37,99,235,.25);
-
-}
-
-.input-icon{
-
-    position:absolute;
-
-    top:50%;
-
-    left:18px;
-
-    transform:translateY(-50%);
-
-    color:#60A5FA;
-
-}
-
-.eye-btn{
-
-    position:absolute;
-
-    top:50%;
-
-    right:18px;
-
-    transform:translateY(-50%);
-
-    background:none;
-
-    border:none;
-
-    color:#94A3B8;
-
-    cursor:pointer;
-
-    font-size:17px;
-
-}
-
-/* Register Button */
-
-.register-btn{
-
-    height:50px;
-
-    border:none;
-
-    border-radius:15px;
-
-    background:linear-gradient(
-        135deg,
-        #2563EB,
-        #7C3AED
+  background:
+    linear-gradient(
+      145deg,
+      rgba(124,58,237,.2),
+      rgba(37,99,235,.1)
     );
 
-    color:white;
+  border:
+    1px solid rgba(167,139,250,.2);
 
-    font-size:16px;
-
-    font-weight:600;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    gap:10px;
-
-    cursor:pointer;
-
-    transition:.3s;
-
+  box-shadow:
+    0 0 25px rgba(124,58,237,.12);
 }
 
-.register-btn:hover{
+.auth-brand-mark span {
+  display: block;
 
-    transform:translateY(-3px);
+  color: #e2e8f0;
 
-    box-shadow:0 10px 25px rgba(37,99,235,.35);
+  font-size: 10px;
+  font-weight: 800;
 
+  letter-spacing: 1.7px;
 }
 
-/* Login */
+.auth-brand-mark small {
+  display: block;
 
-.login-switch {
-  margin-top: 20px;
+  margin-top: 2px;
+
+  color: #475569;
+
+  font-size: 6px;
+  font-weight: 700;
+
+  letter-spacing: 1px;
+}
+
+/* =========================================================
+   HEADING
+========================================================= */
+
+.register-heading {
+  margin-bottom: 15px;
+}
+
+.register-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  margin-bottom: 7px;
+
+  color: #a78bfa;
+
+  font-size: 7px;
+  font-weight: 800;
+
+  letter-spacing: 1.5px;
+}
+
+.register-eyebrow svg {
+  font-size: 5px;
+
+  filter:
+    drop-shadow(
+      0 0 7px #a78bfa
+    );
+}
+
+.register-heading h2 {
+  margin: 0;
+
+  font-size: 29px;
+
+  line-height: 1.1;
+
+  letter-spacing: -1px;
+}
+
+.register-heading h2 span {
+  background:
+    linear-gradient(
+      90deg,
+      #a78bfa,
+      #60a5fa
+    );
+
+  color: transparent;
+
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.register-heading p {
+  max-width: 340px;
+
+  margin: 7px 0 0;
+
+  color: #64748b;
+
+  font-size: 10px;
+
+  line-height: 1.5;
+}
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.register-form form {
+  display: flex;
+  flex-direction: column;
+
+  gap: 11px;
+}
+
+/* =========================================================
+   FIELD
+========================================================= */
+
+.auth-field label {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #64748b;
+
+  font-size: 6px;
+
+  font-weight: 800;
+
+  letter-spacing: 1.1px;
+}
+
+/* =========================================================
+   TWO COLUMN
+========================================================= */
+
+.register-two-column,
+.register-password-row {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 10px;
+}
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+.input-group {
+  position: relative;
+}
+
+.input-group input {
   width: 100%;
-  height: 50px;
-  min-height: 50px;
-  padding: 0 20px;
-
-  border-radius: 14px;
-  border: 1px solid #334155;
-  background: transparent;
-  color: white;
-
-  cursor: pointer;
-  transition: 0.3s;
-  font-weight: 600;
+  height: 42px;
 
   box-sizing: border-box;
+
+  padding:
+    0 40px 0 37px;
+
+  outline: none;
+
+  border-radius: 11px;
+
+  color: #f8fafc;
+
+  background:
+    rgba(15,23,42,.72);
+
+  border:
+    1px solid rgba(71,85,105,.55);
+
+  font-size: 10px;
+
+  transition:
+    border-color .3s ease,
+    box-shadow .3s ease,
+    background .3s ease;
 }
 
-.login-switch:hover {
-  background: #1E293B;
-  border-color: #3B82F6;
+.input-group input::placeholder {
+  color: #334155;
+}
+
+.input-group input:hover {
+  border-color:
+    rgba(167,139,250,.3);
+}
+
+.input-group input:focus {
+  background:
+    rgba(15,23,42,.95);
+
+  border-color:
+    rgba(167,139,250,.65);
+
+  box-shadow:
+    0 0 0 3px rgba(124,58,237,.07),
+    0 0 22px rgba(124,58,237,.09);
+}
+
+.input-icon {
+  position: absolute;
+
+  left: 13px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  color: #475569;
+
+  font-size: 10px;
+
+  pointer-events: none;
+
+  transition:
+    color .3s ease;
+}
+
+.input-group:focus-within .input-icon {
+  color: #a78bfa;
+}
+
+/* =========================================================
+   EYE
+========================================================= */
+
+.eye-btn {
+  position: absolute;
+
+  right: 9px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  width: 25px;
+  height: 25px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+
+  border-radius: 7px;
+
+  background: transparent;
+
+  color: #475569;
+
+  cursor: pointer;
+}
+
+.eye-btn:hover {
+  color: #cbd5e1;
+
+  background:
+    rgba(255,255,255,.04);
+}
+
+/* =========================================================
+   PASSWORD SECURITY
+========================================================= */
+
+.password-security {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 1px;
+}
+
+.password-security-line {
+  display: flex;
+
+  gap: 3px;
+
+  width: 80px;
+}
+
+.password-security-line span {
+  flex: 1;
+
+  height: 3px;
+
+  border-radius: 10px;
+
+  background: #1e293b;
+
+  transition:
+    background .3s ease,
+    box-shadow .3s ease;
+}
+
+.password-security-line span.active {
+  background: #60a5fa;
+
+  box-shadow:
+    0 0 7px rgba(96,165,250,.4);
+}
+
+.password-security > span {
+  color: #475569;
+
+  font-size: 5px;
+
+  font-weight: 800;
+
+  letter-spacing: .7px;
+}
+
+/* =========================================================
+   REGISTER BUTTON
+========================================================= */
+
+.register-btn {
+  position: relative;
+
+  width: 100%;
+  height: 47px;
+
+  margin-top: 3px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  color: white;
+
+  background:
+    linear-gradient(
+      110deg,
+      #7c3aed,
+      #4f46e5,
+      #2563eb
+    );
+
+  background-size: 200% 100%;
+
+  cursor: pointer;
+
+  font-size: 10px;
+  font-weight: 750;
+
+  box-shadow:
+    0 12px 30px rgba(124,58,237,.18);
+
+  overflow: hidden;
+
+  transition:
+    transform .3s ease,
+    box-shadow .3s ease,
+    background-position .5s ease;
+}
+
+.register-btn::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      110deg,
+      transparent 20%,
+      rgba(255,255,255,.15),
+      transparent 80%
+    );
+
+  transform: translateX(-100%);
+
+  transition:
+    transform .6s ease;
+}
+
+.register-btn:hover {
+  transform: translateY(-2px);
+
+  background-position: 100% 0;
+
+  box-shadow:
+    0 16px 35px rgba(124,58,237,.28);
+}
+
+.register-btn:hover::before {
+  transform: translateX(100%);
+}
+
+.register-btn svg {
+  font-size: 9px;
+
+  transition:
+    transform .3s ease;
+}
+
+.register-btn:hover svg {
+  transform: translateX(4px);
+}
+
+.register-btn:disabled {
+  opacity: .65;
+
+  cursor: not-allowed;
+
+  transform: none;
+}
+
+/* =========================================================
+   MESSAGES
+========================================================= */
+
+.auth-message {
+  padding: 8px 10px;
+
+  border-radius: 9px;
+
+  font-size: 8px;
+
+  line-height: 1.35;
+}
+
+.register-error {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  color: #fca5a5;
+
+  background:
+    rgba(239,68,68,.07);
+
+  border:
+    1px solid rgba(239,68,68,.2);
+}
+
+.register-success {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  color: #86efac;
+
+  background:
+    rgba(34,197,94,.07);
+
+  border:
+    1px solid rgba(34,197,94,.18);
+}
+
+.register-success svg {
+  font-size: 9px;
+}
+
+/* =========================================================
+   SWITCH
+========================================================= */
+
+.auth-switch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+
+  margin-top: 12px;
+
+  color: #475569;
+
+  font-size: 7px;
+}
+
+.auth-switch button {
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  color: #a78bfa;
+
+  font-size: 7px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+.auth-switch button:hover {
+  color: #c4b5fd;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.auth-security-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  margin-top: 12px;
+
+  color: #334155;
+
+  font-size: 5px;
+
+  font-weight: 800;
+
+  letter-spacing: .7px;
+}
+
+.auth-security-footer svg {
+  color: #475569;
+
+  font-size: 6px;
+}
+
+.auth-security-footer i {
+  width: 2px;
+  height: 2px;
+
+  border-radius: 50%;
+
+  background: #334155;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+  .register-form {
+    padding: 28px 24px 22px;
+  }
+
+  .register-two-column,
+  .register-password-row {
+    grid-template-columns: 1fr;
+  }
+
+  .register-form {
+    overflow-y: auto;
+  }
+
+  .register-heading h2 {
+    font-size: 27px;
+  }
 }

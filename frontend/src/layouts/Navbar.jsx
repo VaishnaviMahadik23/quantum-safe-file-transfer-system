@@ -1,5 +1,16 @@
-import "./Navbar.css";
-import { FaBell, FaSearch, FaUserCircle } from "react-icons/fa";
+
+// impoved version of navbar.jsx with better styling and responsive design
+import "./newlyaddedcss_for_navbar.css";
+
+import {
+  FaBell,
+  FaSearch,
+  FaUserCircle,
+  FaShieldAlt,
+  FaChevronDown,
+  FaLock,
+} from "react-icons/fa";
+
 import { useAuth } from "../context/AuthContext";
 
 function Navbar() {
@@ -16,48 +27,103 @@ function Navbar() {
       : user?.status || "Offline";
 
   return (
-    <header className="navbar">
+    <header className="premium-navbar">
 
-      <div className="navbar-left">
-        <h2>Quantum-Safe File Transfer Application</h2>
+      {/* LEFT */}
+      <div className="navbar-brand">
 
-        <p>Secure • Fast • Quantum Resistant</p>
+        <div className="brand-icon">
+          <FaShieldAlt />
+          <span className="brand-pulse"></span>
+        </div>
+
+        <div className="brand-text">
+          <div className="brand-title">
+            Quantum<span>Safe</span>
+          </div>
+
+          <div className="brand-subtitle">
+            <FaLock />
+            <span>Secure File Transfer</span>
+          </div>
+        </div>
+
       </div>
 
-      <div className="navbar-right">
 
-        <div className="search-box">
+      {/* CENTER SECURITY STATUS */}
+      <div className="security-status">
 
-          <FaSearch />
+        <span className="status-dot"></span>
+
+        <div className="status-content">
+          <span className="status-title">
+            Secure Network
+          </span>
+
+          <span className="status-description">
+            Quantum-resistant protection active
+          </span>
+        </div>
+
+      </div>
+
+
+      {/* RIGHT */}
+      <div className="navbar-actions">
+
+        {/* SEARCH */}
+        <div className="premium-search">
+
+          <FaSearch className="search-icon" />
 
           <input
             type="text"
-            placeholder="Search..."
+            placeholder="Search files, users..."
           />
+
+          <span className="search-shortcut">
+            Ctrl K
+          </span>
 
         </div>
 
+
+        {/* NOTIFICATION */}
         <button
-          className="notification-btn"
+          className="premium-notification"
           type="button"
           aria-label="Notifications"
         >
+
           <FaBell />
 
-          <span className="notification-badge">3</span>
+          <span className="notification-dot"></span>
+
         </button>
 
-        <div className="user-profile">
 
-          <FaUserCircle className="avatar" />
+        {/* USER */}
+        <div className="premium-user">
 
-          <div>
+          <div className="user-avatar">
+            <FaUserCircle />
+          </div>
 
-            <h4>{displayName}</h4>
+          <div className="user-info">
 
-            <p>{displayStatus}</p>
+            <span className="user-name">
+              {displayName}
+            </span>
+
+            <span className="user-status">
+              <span></span>
+              {displayStatus}
+            </span>
 
           </div>
+
+          <FaChevronDown className="user-chevron" />
 
         </div>
 

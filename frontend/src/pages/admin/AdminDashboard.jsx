@@ -3,9 +3,8 @@ import "./AdminDashboard.css";
 
 function AdminDashboard() {
   return (
-    <MainLayout>
+    
       <h1>AdminDashboard</h1>
-    </MainLayout>
   );
 }
 

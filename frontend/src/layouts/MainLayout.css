@@ -1,58 +1,292 @@
-.layout{
+/* =========================================================
+   MAIN APPLICATION LAYOUT
+========================================================= */
 
-    display:flex;
+.layout {
+    width: 100%;
+    min-height: 100vh;
 
-    min-height:100vh;
+    background: var(--bg-color);
+
+    /* Prevent horizontal overflow */
+    overflow-x: hidden;
+
+    position: relative;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+========================================================= */
+
+.main-content {
+    margin-left: 275px;
+
+    /*
+       Instead of relying only on width,
+       flex/box sizing keeps the content inside
+       the viewport.
+    */
+    width: calc(100% - 275px);
+
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+
+    background:
+        radial-gradient(
+            circle at 85% 0%,
+            rgba(37, 99, 235, 0.035),
+            transparent 28%
+        ),
+        var(--bg-color);
+
+    /*
+       Smooth sidebar transition
+    */
+    transition:
+        margin-left 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+        width 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
+   COLLAPSED SIDEBAR
+   275px → 82px
+========================================================= */
+
+.layout.sidebar-collapsed .main-content {
+
+    margin-left: 82px;
+
+    width: calc(100% - 82px);
 
 }
 
-.main-content{
 
-    margin-left:270px;
+/* =========================================================
+   PAGE CONTENT
+========================================================= */
 
-    width:calc(100% - 270px);
+.page-content {
 
-    display:flex;
+    flex: 1;
 
-    flex-direction:column;
+    width: 100%;
 
-    background:var(--bg-color);
+    box-sizing: border-box;
+
+    padding: 30px;
+
+    min-height: calc(100vh - 80px);
+
+    /*
+       Vertical scrolling belongs here.
+    */
+    overflow-y: auto;
+
+    /*
+       Never allow pages to create horizontal
+       scrolling inside the application.
+    */
+    overflow-x: hidden;
+
+    position: relative;
+
+    /*
+       Prevent flex children from forcing
+       the content wider than the viewport.
+    */
+    min-width: 0;
+}
+
+
+/* =========================================================
+   PREMIUM PAGE BACKGROUND
+========================================================= */
+
+.page-content::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    right: 0;
+
+    width: 420px;
+    height: 420px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(59, 130, 246, 0.035),
+            transparent 70%
+        );
+
+    pointer-events: none;
+
+    z-index: 0;
 
 }
 
-.page-content{
 
-    padding:30px;
+/* =========================================================
+   PAGE CONTENT LAYER
+========================================================= */
 
-    min-height:calc(100vh - 80px);
+.page-content > * {
 
-    overflow-y:auto;
+    position: relative;
+
+    z-index: 1;
 
 }
 
-/* Tablet */
 
-@media(max-width:992px){
+/* =========================================================
+   CUSTOM SCROLLBAR
+========================================================= */
 
-    .main-content{
+.page-content::-webkit-scrollbar {
 
-        margin-left:85px;
+    width: 7px;
 
-        width:calc(100% - 85px);
+}
+
+.page-content::-webkit-scrollbar-track {
+
+    background: transparent;
+
+}
+
+.page-content::-webkit-scrollbar-thumb {
+
+    background:
+        rgba(100, 116, 139, 0.25);
+
+    border-radius: 20px;
+
+}
+
+.page-content::-webkit-scrollbar-thumb:hover {
+
+    background:
+        rgba(96, 165, 250, 0.4);
+
+}
+
+
+/* Firefox */
+
+.page-content {
+
+    scrollbar-width: thin;
+
+    scrollbar-color:
+        rgba(100, 116, 139, 0.25)
+        transparent;
+
+}
+
+
+/* =========================================================
+   TABLET
+   992px and below
+
+   Sidebar stays at 82px.
+========================================================= */
+
+@media (max-width: 992px) {
+
+    .main-content {
+
+        margin-left: 82px;
+
+        width: calc(100% - 82px);
+
+    }
+
+    /*
+       Even if the React sidebar still has
+       expanded state, tablet layout remains
+       compact.
+    */
+
+    .layout.sidebar-collapsed .main-content {
+
+        margin-left: 82px;
+
+        width: calc(100% - 82px);
+
+    }
+
+    .page-content {
+
+        padding: 25px;
 
     }
 
 }
 
-/* Mobile */
 
-@media(max-width:768px){
+/* =========================================================
+   MOBILE
+   768px and below
 
-    .main-content{
+   Sidebar is expected to become an overlay/mobile
+   component, so the page takes the full viewport.
+========================================================= */
 
-        margin-left:0;
+@media (max-width: 768px) {
 
-        width:100%;
+    .main-content,
+    .layout.sidebar-collapsed .main-content {
+
+        margin-left: 0;
+
+        width: 100%;
+
+    }
+
+    .page-content {
+
+        padding: 20px;
+
+        min-height: calc(100vh - 70px);
+
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .page-content {
+
+        padding: 15px;
+
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL DEVICES
+========================================================= */
+
+@media (max-width: 360px) {
+
+    .page-content {
+
+        padding: 12px;
 
     }
 

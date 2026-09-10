@@ -94,7 +94,6 @@ function CryptoDetails() {
   ];
 
   return (
-    <MainLayout>
     <div className="crypto-page">
 
       {/* =========================
@@ -628,7 +627,6 @@ function CryptoDetails() {
       </div>
 
     </div>
-    </MainLayout>
   );
 }
 

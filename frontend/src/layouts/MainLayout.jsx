@@ -3,30 +3,41 @@ import "./MainLayout.css";
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 
-function MainLayout({ children }) {
+import { useState } from "react";
+import { Outlet } from "react-router-dom";
+
+function MainLayout() {
+
+    const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
     return (
+        <div
+            className={`layout ${
+                sidebarCollapsed ? "sidebar-collapsed" : ""
+            }`}
+        >
 
-        <div className="layout">
+            {/* SIDEBAR */}
+            <Sidebar
+                collapsed={sidebarCollapsed}
+                setCollapsed={setSidebarCollapsed}
+            />
 
-            <Sidebar />
 
+            {/* RIGHT SIDE */}
             <div className="main-content">
 
+                {/* NAVBAR */}
                 <Navbar />
-
+                
                 <main className="page-content">
-
-                    {children}
-
+                    <Outlet />
                 </main>
 
             </div>
 
         </div>
-
     );
-
 }
 
 export default MainLayout;

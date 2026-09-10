@@ -11,86 +11,103 @@ import CryptoDetails from "../pages/crypto/CryptoDetails";
 import Profile from "../pages/profile/Profile";
 import Settings from "../pages/settings/Settings";
 import AdminDashboard from "../pages/admin/AdminDashboard";
+import ForgotPassword from "../pages/auth/ForgotPassword";
 
 import ProtectedRoute from "../components/auth/ProtectedRoute";
+import MainLayout from "../layouts/MainLayout";
+
 
 function AppRoutes() {
-  return (
-    <Routes>
 
-      {/* =========================
-          PUBLIC ROUTES
-      ========================== */}
+    return (
+        <Routes>
 
-      <Route
-        path="/"
-        element={<Landing />}
-      />
+            {/* =========================
+                PUBLIC PAGES
+            ========================== */}
 
-      <Route
-        path="/auth"
-        element={<Auth />}
-      />
+            <Route
+                path="/"
+                element={<Landing />}
+            />
 
-      {/* =========================
-          PROTECTED ROUTES
-      ========================== */}
+            <Route
+                path="/auth"
+                element={<Auth />}
+            />
 
-      <Route element={<ProtectedRoute />}>
 
-        <Route
-          path="/dashboard"
-          element={<Dashboard />}
-        />
+            {/* =========================
+                PROTECTED PAGES
+            ========================== */}
 
-        <Route
-          path="/send-file"
-          element={<SendFile />}
-        />
+            <Route element={<ProtectedRoute />}>
 
-        <Route
-          path="/received-files"
-          element={<ReceivedFiles />}
-        />
+                {/* ONE AND ONLY ONE MAIN LAYOUT */}
 
-        <Route
-          path="/history"
-          element={<TransferHistory />}
-        />
+                <Route element={<MainLayout />}>
 
-        <Route
-          path="/crypto"
-          element={<CryptoDetails />}
-        />
+                    <Route
+                        path="/dashboard"
+                        element={<Dashboard />}
+                    />
 
-        <Route
-          path="/profile"
-          element={<Profile />}
-        />
+                    <Route
+                        path="/send-file"
+                        element={<SendFile />}
+                    />
 
-        <Route
-          path="/settings"
-          element={<Settings />}
-        />
+                    <Route
+                        path="/received-files"
+                        element={<ReceivedFiles />}
+                    />
 
-        <Route
-          path="/admin"
-          element={<AdminDashboard />}
-        />
+                    <Route
+                        path="/history"
+                        element={<TransferHistory />}
+                    />
 
-      </Route>
+                    <Route
+                        path="/crypto"
+                        element={<CryptoDetails />}
+                    />
 
-      {/* =========================
-          FALLBACK ROUTE
-      ========================== */}
+                    <Route
+                        path="/profile"
+                        element={<Profile />}
+                    />
 
-      <Route
-        path="*"
-        element={<Navigate to="/" replace />}
-      />
+                    <Route
+                        path="/settings"
+                        element={<Settings />}
+                    />
 
-    </Routes>
-  );
+                    <Route
+                        path="/admin"
+                        element={<AdminDashboard />}
+                    />
+
+                    <Route
+                        path="/forgot-password"
+                        element={<ForgotPassword />}
+                    />
+
+                </Route>
+
+            </Route>
+
+
+            {/* =========================
+                FALLBACK
+            ========================== */}
+
+            <Route
+                path="*"
+                element={<Navigate to="/" replace />}
+            />
+
+        </Routes>
+    );
 }
 
 export default AppRoutes;

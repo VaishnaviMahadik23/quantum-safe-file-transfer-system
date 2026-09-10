@@ -10,11 +10,29 @@ const axiosClient = axios.create({
 });
 
 // Automatically attach JWT to protected requests
+/* chnaged part (it creates problem with login and register requests)
 axiosClient.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("accessToken");
 
     if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    return config;
+  },
+  (error) => Promise.reject(error)
+);*/
+
+axiosClient.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("accessToken");
+
+    const isAuthRequest =
+      config.url?.includes("/api/v1/auth/login") ||
+      config.url?.includes("/api/v1/auth/register");
+
+    if (token && !isAuthRequest) {
       config.headers.Authorization = `Bearer ${token}`;
     }
 

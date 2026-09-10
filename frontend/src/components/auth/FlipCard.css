@@ -1,105 +1,425 @@
-/* =====================================
-   FLIP CARD
-===================================== */
+/* =========================================================
+   QUANTUMSAFE — PREMIUM AUTH FLIP SYSTEM
+========================================================= */
 
-.flip-card {
+.flip-card-shell {
+  position: relative;
 
-    width: 100%;
+  width: 100%;
+  max-width: 470px;
+  height: 650px;
 
-    max-width: 470px;
+  perspective: 2200px;
 
-    height: 650px;
-
-    perspective: 1800px;
-
+  isolation: isolate;
 }
 
+/* =========================================================
+   MAIN CARD
+========================================================= */
+
+.flip-card {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 5;
+}
+
+/* =========================================================
+   3D INNER
+========================================================= */
+
 .flip-card-inner {
+  position: relative;
 
-    position: relative;
+  width: 100%;
+  height: 100%;
 
-    width: 100%;
+  transform-style: preserve-3d;
 
-    height: 100%;
+  transition:
+    transform 0.95s cubic-bezier(0.22, 1, 0.36, 1);
 
-    transition: transform .8s ease;
-
-    transform-style: preserve-3d;
-
+  will-change: transform;
 }
 
 .flip-card-inner.flipped {
-
-    transform: rotateY(180deg);
-
+  transform: rotateY(180deg);
 }
 
-.flip-card-front,
-.flip-card-back {
+/* =========================================================
+   CARD FACES
+========================================================= */
 
-    position: absolute;
+.flip-card-face {
+  position: absolute;
+  inset: 0;
 
-    inset: 0;
+  overflow: hidden;
 
-    border-radius: 28px;
+  border-radius: 30px;
 
-    background: rgba(17,24,39,.88);
-
-    backdrop-filter: blur(18px);
-
-    border: 1px solid rgba(255,255,255,.08);
-
-    box-shadow:
-        0 20px 60px rgba(0,0,0,.35);
-
-    backface-visibility: hidden;
-
-    overflow: hidden;
-
-}
-
-.flip-card-back {
-
-    transform: rotateY(180deg);
-
-}
-
-/* Glow Animation */
-
-.flip-card::before {
-
-    content: "";
-
-    position: absolute;
-
-    inset: -2px;
-
-    border-radius: 30px;
-
-    background: linear-gradient(
-        135deg,
-        rgba(37,99,235,.35),
-        rgba(124,58,237,.35)
+  background:
+    linear-gradient(
+      145deg,
+      rgba(15, 23, 42, 0.97),
+      rgba(8, 15, 30, 0.985)
     );
 
-    filter: blur(18px);
+  border: 1px solid rgba(148, 163, 184, 0.14);
 
-    z-index: -1;
+  box-shadow:
+    0 35px 100px rgba(0, 0, 0, 0.48),
+    inset 0 1px 0 rgba(255, 255, 255, 0.055);
 
+  backface-visibility: hidden;
+
+  -webkit-backface-visibility: hidden;
 }
 
-/* Responsive */
+/* =========================================================
+   REGISTER FACE
+========================================================= */
 
-@media (max-width:768px){
+.flip-card-back {
+  transform: rotateY(180deg);
 
-.flip-card{
-
-height:auto;
-
-min-height:620px;
-
-max-width:100%;
-
+  background:
+    linear-gradient(
+      145deg,
+      rgba(18, 16, 42, 0.98),
+      rgba(8, 15, 30, 0.985)
+    );
 }
 
+/* =========================================================
+   CARD CONTENT
+========================================================= */
+
+.card-content {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 10;
+}
+
+/* =========================================================
+   SECURITY GRID
+========================================================= */
+
+.security-grid {
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    linear-gradient(
+      rgba(96, 165, 250, 0.035) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(96, 165, 250, 0.035) 1px,
+      transparent 1px
+    );
+
+  background-size: 35px 35px;
+
+  mask-image:
+    linear-gradient(
+      to bottom,
+      black,
+      transparent 75%
+    );
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   CARD GLOW
+========================================================= */
+
+.flip-card-face::before {
+  content: "";
+
+  position: absolute;
+
+  width: 260px;
+  height: 260px;
+
+  top: -150px;
+  right: -100px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(37, 99, 235, 0.28),
+      transparent 68%
+    );
+
+  filter: blur(20px);
+
+  pointer-events: none;
+}
+
+.flip-card-back::before {
+  background:
+    radial-gradient(
+      circle,
+      rgba(124, 58, 237, 0.3),
+      transparent 68%
+    );
+}
+
+/* =========================================================
+   BOTTOM ATMOSPHERE
+========================================================= */
+
+.flip-card-face::after {
+  content: "";
+
+  position: absolute;
+
+  width: 320px;
+  height: 180px;
+
+  bottom: -140px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(37, 99, 235, 0.14),
+      transparent 70%
+    );
+
+  filter: blur(20px);
+
+  pointer-events: none;
+}
+
+.flip-card-back::after {
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(124, 58, 237, 0.16),
+      transparent 70%
+    );
+}
+
+/* =========================================================
+   OUTER AURA
+========================================================= */
+
+.flip-card-aura {
+  position: absolute;
+
+  inset: -30px;
+
+  border-radius: 45px;
+
+  filter: blur(45px);
+
+  opacity: 0.32;
+
+  z-index: -2;
+
+  pointer-events: none;
+
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+}
+
+.aura-blue {
+  background:
+    radial-gradient(
+      circle at 30% 40%,
+      rgba(37, 99, 235, 0.65),
+      transparent 55%
+    );
+}
+
+.aura-purple {
+  background:
+    radial-gradient(
+      circle at 70% 60%,
+      rgba(124, 58, 237, 0.6),
+      transparent 55%
+    );
+
+  opacity: 0.18;
+}
+
+/* =========================================================
+   FLIPPED ATMOSPHERE
+========================================================= */
+
+.flip-card-shell.is-flipped .aura-blue {
+  opacity: 0.16;
+  transform: scale(0.95);
+}
+
+.flip-card-shell.is-flipped .aura-purple {
+  opacity: 0.4;
+  transform: scale(1.05);
+}
+
+/* =========================================================
+   SCANNING BEAM
+========================================================= */
+
+.flip-card-scan {
+  position: absolute;
+
+  left: 10%;
+  right: 10%;
+
+  top: -20%;
+
+  height: 2px;
+
+  z-index: 20;
+
+  opacity: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(96, 165, 250, 0.15),
+      #60a5fa,
+      rgba(167, 139, 250, 0.8),
+      transparent
+    );
+
+  box-shadow:
+    0 0 18px rgba(96, 165, 250, 0.65);
+
+  pointer-events: none;
+}
+
+.flip-card-shell.is-flipped .flip-card-scan {
+  animation: securityScan 1.2s ease;
+}
+
+@keyframes securityScan {
+  0% {
+    top: -10%;
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    top: 110%;
+    opacity: 0;
+  }
+}
+
+/* =========================================================
+   CORNER SECURITY MARKERS
+========================================================= */
+
+.card-corner {
+  position: absolute;
+
+  width: 18px;
+  height: 18px;
+
+  border-color: rgba(96, 165, 250, 0.35);
+
+  z-index: 15;
+
+  pointer-events: none;
+}
+
+.corner-top-left {
+  top: 18px;
+  left: 18px;
+
+  border-top: 1px solid;
+  border-left: 1px solid;
+}
+
+.corner-top-right {
+  top: 18px;
+  right: 18px;
+
+  border-top: 1px solid;
+  border-right: 1px solid;
+}
+
+.corner-bottom-left {
+  bottom: 18px;
+  left: 18px;
+
+  border-bottom: 1px solid;
+  border-left: 1px solid;
+}
+
+.corner-bottom-right {
+  bottom: 18px;
+  right: 18px;
+
+  border-bottom: 1px solid;
+  border-right: 1px solid;
+}
+
+.flip-card-back .card-corner {
+  border-color: rgba(167, 139, 250, 0.4);
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 768px) {
+  .flip-card-shell {
+    max-width: 100%;
+    height: 680px;
+  }
+
+  .flip-card-face {
+    border-radius: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .flip-card-shell {
+    height: 680px;
+  }
+
+  .flip-card-face {
+    border-radius: 20px;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .flip-card-inner {
+    transition: none;
+  }
+
+  .flip-card-scan {
+    display: none;
+  }
 }

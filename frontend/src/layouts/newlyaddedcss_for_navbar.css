@@ -1,0 +1,682 @@
+/* =========================================
+   PREMIUM QUANTUMSAFE NAVBAR
+========================================= */
+
+.premium-navbar {
+  height: 82px;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 32px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(10, 18, 35, 0.97),
+      rgba(8, 15, 30, 0.94)
+    );
+
+  border-bottom: 1px solid rgba(96, 165, 250, 0.12);
+
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.22);
+
+  backdrop-filter: blur(18px);
+
+  z-index: 1000;
+}
+
+
+/* =========================================
+   TOP GLOW
+========================================= */
+
+.premium-navbar::before {
+
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+  right: 0;
+
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(59, 130, 246, 0.8),
+      rgba(34, 211, 238, 0.7),
+      transparent
+    );
+
+  opacity: 0.8;
+}
+
+
+/* =========================================
+   BRAND
+========================================= */
+
+.navbar-brand {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 13px;
+
+  min-width: 240px;
+}
+
+
+/* Logo */
+
+.brand-icon {
+
+  width: 43px;
+  height: 43px;
+
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 13px;
+
+  color: #ffffff;
+
+  font-size: 19px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #2563eb,
+      #06b6d4
+    );
+
+  box-shadow:
+    0 0 20px rgba(37, 99, 235, 0.35),
+    inset 0 1px 1px rgba(255, 255, 255, 0.25);
+
+}
+
+
+/* Small glowing dot */
+
+.brand-pulse {
+
+  position: absolute;
+
+  width: 7px;
+  height: 7px;
+
+  right: 3px;
+  top: 3px;
+
+  border-radius: 50%;
+
+  background: #22c55e;
+
+  border: 2px solid #0a1223;
+
+  box-shadow:
+    0 0 8px rgba(34, 197, 94, 0.9);
+
+}
+
+
+/* Brand text */
+
+.brand-text {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+
+.brand-title {
+
+  color: #f8fafc;
+
+  font-size: 20px;
+
+  font-weight: 700;
+
+  letter-spacing: -0.5px;
+}
+
+
+.brand-title span {
+
+  background:
+    linear-gradient(
+      90deg,
+      #60a5fa,
+      #22d3ee
+    );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+.brand-subtitle {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 5px;
+
+  color: #64748b;
+
+  font-size: 10px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.8px;
+
+  text-transform: uppercase;
+}
+
+
+.brand-subtitle svg {
+
+  font-size: 9px;
+
+  color: #22c55e;
+}
+
+
+/* =========================================
+   SECURITY STATUS
+========================================= */
+
+.security-status {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 9px 16px;
+
+  border-radius: 12px;
+
+  background:
+    rgba(15, 23, 42, 0.65);
+
+  border: 1px solid rgba(34, 197, 94, 0.12);
+
+  box-shadow:
+    inset 0 1px rgba(255, 255, 255, 0.025);
+}
+
+
+/* Green live dot */
+
+.status-dot {
+
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+
+  background: #22c55e;
+
+  box-shadow:
+    0 0 0 4px rgba(34, 197, 94, 0.08),
+    0 0 12px rgba(34, 197, 94, 0.7);
+
+  animation: securePulse 2s infinite;
+}
+
+
+@keyframes securePulse {
+
+  0% {
+    box-shadow:
+      0 0 0 3px rgba(34, 197, 94, 0.08),
+      0 0 8px rgba(34, 197, 94, 0.5);
+  }
+
+  50% {
+    box-shadow:
+      0 0 0 6px rgba(34, 197, 94, 0.03),
+      0 0 16px rgba(34, 197, 94, 0.8);
+  }
+
+  100% {
+    box-shadow:
+      0 0 0 3px rgba(34, 197, 94, 0.08),
+      0 0 8px rgba(34, 197, 94, 0.5);
+  }
+
+}
+
+
+.status-content {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 2px;
+}
+
+
+.status-title {
+
+  color: #e2e8f0;
+
+  font-size: 12px;
+
+  font-weight: 600;
+}
+
+
+.status-description {
+
+  color: #64748b;
+
+  font-size: 9px;
+
+  letter-spacing: 0.2px;
+}
+
+
+/* =========================================
+   RIGHT ACTIONS
+========================================= */
+
+.navbar-actions {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 13px;
+}
+
+
+/* =========================================
+   SEARCH
+========================================= */
+
+.premium-search {
+
+  width: 245px;
+  height: 42px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 0 11px;
+
+  border-radius: 11px;
+
+  background:
+    rgba(15, 23, 42, 0.8);
+
+  border: 1px solid rgba(148, 163, 184, 0.12);
+
+  transition: all 0.25s ease;
+}
+
+
+.premium-search:hover {
+
+  border-color:
+    rgba(59, 130, 246, 0.3);
+
+}
+
+
+.premium-search:focus-within {
+
+  border-color:
+    rgba(59, 130, 246, 0.55);
+
+  box-shadow:
+    0 0 0 3px rgba(59, 130, 246, 0.08),
+    0 0 20px rgba(37, 99, 235, 0.08);
+}
+
+
+.search-icon {
+
+  color: #64748b;
+
+  font-size: 14px;
+}
+
+
+.premium-search input {
+
+  flex: 1;
+
+  min-width: 0;
+
+  border: none;
+
+  outline: none;
+
+  background: transparent;
+
+  color: #e2e8f0;
+
+  font-size: 12px;
+}
+
+
+.premium-search input::placeholder {
+
+  color: #475569;
+}
+
+
+.search-shortcut {
+
+  padding: 4px 7px;
+
+  border-radius: 5px;
+
+  color: #64748b;
+
+  background: rgba(255, 255, 255, 0.04);
+
+  border: 1px solid rgba(255, 255, 255, 0.06);
+
+  font-size: 9px;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================
+   NOTIFICATION
+========================================= */
+
+.premium-notification {
+
+  width: 42px;
+  height: 42px;
+
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(148, 163, 184, 0.12);
+
+  border-radius: 11px;
+
+  background: rgba(15, 23, 42, 0.8);
+
+  color: #94a3b8;
+
+  cursor: pointer;
+
+  transition: all 0.25s ease;
+}
+
+
+.premium-notification:hover {
+
+  color: #ffffff;
+
+  border-color:
+    rgba(59, 130, 246, 0.35);
+
+  background:
+    rgba(37, 99, 235, 0.12);
+
+  transform: translateY(-1px);
+
+}
+
+
+.premium-notification svg {
+
+  font-size: 15px;
+}
+
+
+/* Notification dot */
+
+.notification-dot {
+
+  position: absolute;
+
+  top: 9px;
+  right: 9px;
+
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: #ef4444;
+
+  border: 2px solid #0f172a;
+
+}
+
+
+/* =========================================
+   USER PROFILE
+========================================= */
+
+.premium-user {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  padding: 5px 8px 5px 5px;
+
+  border-radius: 12px;
+
+  cursor: pointer;
+
+  transition: all 0.25s ease;
+}
+
+
+.premium-user:hover {
+
+  background:
+    rgba(255, 255, 255, 0.04);
+}
+
+
+/* Avatar */
+
+.user-avatar {
+
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(37, 99, 235, 0.2),
+      rgba(6, 182, 212, 0.15)
+    );
+
+  border: 1px solid rgba(96, 165, 250, 0.18);
+
+}
+
+
+.user-avatar svg {
+
+  font-size: 30px;
+
+  color: #60a5fa;
+}
+
+
+/* User information */
+
+.user-info {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 3px;
+
+  min-width: 65px;
+}
+
+
+.user-name {
+
+  color: #f1f5f9;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  white-space: nowrap;
+}
+
+
+.user-status {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 5px;
+
+  color: #64748b;
+
+  font-size: 9px;
+}
+
+
+.user-status span {
+
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: #22c55e;
+
+  box-shadow:
+    0 0 6px rgba(34, 197, 94, 0.7);
+}
+
+
+.user-chevron {
+
+  color: #475569;
+
+  font-size: 9px;
+
+  margin-left: 3px;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1200px) {
+
+  .security-status {
+
+    display: none;
+  }
+
+}
+
+
+@media (max-width: 900px) {
+
+  .premium-search {
+
+    width: 180px;
+  }
+
+  .search-shortcut {
+
+    display: none;
+  }
+
+}
+
+
+@media (max-width: 700px) {
+
+  .premium-navbar {
+
+    padding: 0 18px;
+  }
+
+  .brand-subtitle {
+
+    display: none;
+  }
+
+  .premium-search {
+
+    width: 42px;
+
+    justify-content: center;
+
+    padding: 0;
+  }
+
+  .premium-search input {
+
+    display: none;
+  }
+
+  .premium-search .search-icon {
+
+    font-size: 15px;
+  }
+
+  .user-info,
+  .user-chevron {
+
+    display: none;
+  }
+
+  .premium-user {
+
+    padding: 0;
+  }
+
+}

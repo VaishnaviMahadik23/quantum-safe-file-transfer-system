@@ -5,7 +5,6 @@ import LoginForm from "../../components/auth/LoginForm";
 import RegisterForm from "../../components/auth/RegisterForm";
 import FlipCard from "../../components/auth/FlipCard";
 
-
 import { useSearchParams } from "react-router-dom";
 
 
