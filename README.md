@@ -1113,13 +1113,12 @@ http://localhost:8080
 ```
 
 ---
----
 ## Author's
-Vaibhav Kalwaghe
-Nilakshi Kuldhar
-Kaveri Lute 
-Vaishnavi Mahadik
----
+* Vaibhav Ashok Kalwaghe
+* Nilakshi Rameshawar Kuldhar
+* Kaveri Sunil Lute
+* Vaishnavi Shivaji Mahadik
+  
 ## License
 
 This project is developed as a **Final Year Engineering Project** for academic and educational purposes.
