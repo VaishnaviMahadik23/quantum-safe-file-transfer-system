@@ -29,7 +29,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 11px;
-  color: #60a5fa;
+  color: #7c3aed;
   background: linear-gradient(
     145deg,
     rgba(37, 99, 235, 0.2),
@@ -168,7 +168,7 @@
 
 .input-group input:focus {
   background: rgba(15, 23, 42, 0.95);
-  border-color: rgba(96, 165, 250, 0.7);
+  border-color: rgba(180, 104, 239, 0.655);
   box-shadow:
     0 0 0 3px rgba(37, 99, 235, 0.08),
     0 0 25px rgba(37, 99, 235, 0.1);
@@ -186,7 +186,7 @@
 }
 
 .input-group:focus-within .input-icon {
-  color: #60a5fa;
+  color: #7c3aed;
 }
 
 /* =========================================================
@@ -226,7 +226,7 @@
   padding: 0;
   border: none;
   background: transparent;
-  color: #60a5fa;
+  color: #7c3aed;
   cursor: pointer;
   font-size: 13px;
   font-weight: 600;
@@ -272,8 +272,8 @@
 }
 
 .remember-option input:checked + .custom-checkbox {
-  background: #2563eb;
-  border-color: #60a5fa;
+  background: #7c3aed;
+  border-color: #7c3aed;
   box-shadow: 0 0 10px rgba(37, 99, 235, 0.35);
 }
 
@@ -311,12 +311,14 @@
   border: none;
   border-radius: 13px;
   color: white;
-  background: linear-gradient(
-    110deg,
-    #2563eb,
-    #4f46e5,
-    #7c3aed
-  );
+ 
+  background:
+    linear-gradient(
+      110deg,
+      #7c3aed,
+      #4f46e5,
+      #2563eb
+    );
   background-size: 200% 100%;
   cursor: pointer;
   font-size: 16px;

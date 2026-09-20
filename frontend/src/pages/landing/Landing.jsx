@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+
 import {
   FaArrowRight,
   FaLock,
@@ -10,174 +11,264 @@ import {
   FaDatabase,
   FaFileAlt,
   FaFingerprint,
-  FaBoxOpen,
   FaCheckCircle,
-  FaBolt,
-  FaUserShield,
-  FaServer,
+  FaCloud,
 } from "react-icons/fa";
+
 import { BsFingerprint } from "react-icons/bs";
+
 import "./Landing.css";
+
+
+/* =========================================================
+   PIPELINE
+   ========================================================= */
 
 const pipeline = [
   {
-    icon: <FaFileAlt />,
     number: "01",
-    title: "Original File",
-    desc: "Confidential data enters the secure pipeline.",
+    icon: <FaFileAlt />,
+    title: "Select File",
+    desc: "Your confidential file enters the protected transfer workflow.",
   },
   {
-    icon: <FaLock />,
     number: "02",
-    title: "AES-256-GCM",
-    desc: "File content is encrypted using authenticated encryption.",
+    icon: <FaLock />,
+    title: "Encrypt",
+    desc: "AES-256-GCM encrypts the file using authenticated encryption.",
   },
   {
-    icon: <FaKey />,
     number: "03",
-    title: "ML-KEM",
-    desc: "Quantum-safe key encapsulation protects the encryption key.",
+    icon: <FaKey />,
+    title: "Protect Key",
+    desc: "ML-KEM protects the encryption key using post-quantum cryptography.",
   },
   {
-    icon: <FaFingerprint />,
     number: "04",
-    title: "SHA3-256",
-    desc: "A cryptographic hash verifies file integrity.",
+    icon: <FaFingerprint />,
+    title: "Verify",
+    desc: "SHA3-256 verifies integrity while ML-DSA authenticates the package.",
   },
   {
-    icon: <FaSignature />,
     number: "05",
-    title: "ML-DSA",
-    desc: "Digital signatures provide authenticity and integrity.",
-  },
-  {
-    icon: <FaBoxOpen />,
-    number: "06",
-    title: "Secure Package",
-    desc: "Encrypted data and security metadata are packaged safely.",
+    icon: <FaExchangeAlt />,
+    title: "Transfer",
+    desc: "The protected package moves securely to its destination.",
   },
 ];
 
-const features = [
+
+/* =========================================================
+   SECURITY LAYERS
+   ========================================================= */
+
+const securityLayers = [
   {
+    id: 1,
+    name: "AES-256-GCM",
+    short: "ENCRYPTION",
     icon: <FaLock />,
-    title: "AES-256-GCM",
-    desc: "High-performance authenticated encryption protects confidential file contents.",
+    description:
+      "Encrypts file contents with authenticated encryption.",
   },
   {
+    id: 2,
+    name: "ML-KEM",
+    short: "KEY PROTECTION",
     icon: <FaKey />,
-    title: "ML-KEM",
-    desc: "Post-quantum key encapsulation designed to protect encryption keys against future threats.",
+    description:
+      "Protects encryption keys against quantum-era attacks.",
   },
   {
+    id: 3,
+    name: "ML-DSA",
+    short: "AUTHENTICATION",
     icon: <FaSignature />,
-    title: "ML-DSA",
-    desc: "Digital signatures verify the authenticity and integrity of transferred files.",
+    description:
+      "Provides digital signatures for authenticity.",
   },
   {
-    icon: <FaShieldAlt />,
-    title: "SHA3-256",
-    desc: "Secure cryptographic hashing detects unauthorized changes to file contents.",
+    id: 4,
+    name: "SHA3-256",
+    short: "INTEGRITY",
+    icon: <BsFingerprint />,
+    description:
+      "Creates a fingerprint to detect data modification.",
   },
   {
+    id: 5,
+    name: "SECURE TRANSFER",
+    short: "TRANSMISSION",
     icon: <FaExchangeAlt />,
-    title: "Secure Transfer",
-    desc: "A protected transfer workflow keeps sensitive files secure throughout transmission.",
+    description:
+      "Moves protected packages through the secure workflow.",
   },
   {
+    id: 6,
+    name: "AUDIT TRAIL",
+    short: "VISIBILITY",
     icon: <FaDatabase />,
-    title: "Audit Logs",
-    desc: "Transfer activity can be tracked for transparency, monitoring and auditing.",
+    description:
+      "Records transfer activity for security monitoring.",
   },
 ];
+
+
+/* =========================================================
+   STATS
+   ========================================================= */
 
 const stats = [
   {
-    value: "AES-256",
-    label: "Encryption Standard",
+    value: "AES-256-GCM",
+    label: "Authenticated Encryption",
     icon: <FaLock />,
   },
   {
     value: "ML-KEM",
-    label: "Quantum-Safe KEM",
+    label: "Post-Quantum Key Protection",
     icon: <FaKey />,
   },
   {
     value: "ML-DSA",
-    label: "Digital Signatures",
+    label: "Digital Authentication",
     icon: <FaSignature />,
   },
   {
     value: "SHA3-256",
-    label: "Integrity Protection",
+    label: "Integrity Verification",
     icon: <BsFingerprint />,
   },
 ];
 
+
+/* =========================================================
+   LANDING PAGE
+   ========================================================= */
+
 function LandingPage() {
+
+  const [activeLayer, setActiveLayer] = useState(1);
+
+  const activeSecurity =
+    securityLayers.find(
+      (layer) => layer.id === activeLayer
+    ) || securityLayers[0];
+
+
   return (
     <div className="quantum-page">
 
-      {/* Background */}
-      <div className="background-grid"></div>
-      <div className="glow glow-one"></div>
-      <div className="glow glow-two"></div>
+      {/* =====================================================
+          BACKGROUND
+      ===================================================== */}
 
-      {/* ================= NAVBAR ================= */}
+      <div className="background-grid"></div>
+
+      <div className="ambient ambient-one"></div>
+      <div className="ambient ambient-two"></div>
+      <div className="ambient ambient-three"></div>
+
+
+      {/* =====================================================
+          NAVBAR
+      ===================================================== */}
+
       <header className="navbar">
 
         <Link to="/" className="brand">
-          <div className="brand-icon">
-            Q
+
+          <div className="brand-mark">
+            <span>Q</span>
           </div>
 
           <div className="brand-text">
             <strong>QuantumSafe</strong>
             <span>SECURE FILE TRANSFER</span>
           </div>
+
         </Link>
 
+
         <nav className="nav-links">
-          <a href="#features">Security</a>
-          <a href="#pipeline">How It Works</a>
-          <a href="#technology">Technology</a>
+
+          <a href="#security-core">
+            Security
+          </a>
+
+          <a href="#pipeline">
+            How It Works
+          </a>
+
+          <a href="#security-core">
+            Security Core
+          </a>
+
         </nav>
 
+
         <div className="nav-actions">
-          <Link to="/auth?mode=login" className="nav-login">
+
+          <Link
+            to="/auth?mode=login"
+            className="nav-login"
+          >
             Login
           </Link>
 
-          <Link to="/auth?mode=register" className="nav-register">
+          <Link
+            to="/auth?mode=register"
+            className="nav-register"
+          >
             Get Started
             <FaArrowRight />
           </Link>
+
         </div>
 
       </header>
 
-      {/* ================= HERO ================= */}
+
       <main>
+
+
+        {/* =================================================
+            HERO
+        ================================================= */}
 
         <section className="hero">
 
           <div className="hero-content">
 
-            <div className="hero-label">
-              <span className="live-dot"></span>
-              POST-QUANTUM SECURITY
+            <div className="hero-eyebrow">
+
+              <span className="eyebrow-dot"></span>
+
+              POST-QUANTUM FILE SECURITY
+
             </div>
 
+
             <h1>
-              Secure Your Files.
-              <span>Ready for the Quantum Era.</span>
+
+              Security built for
+
+              <span>
+                what comes next.
+              </span>
+
             </h1>
 
+
             <p className="hero-description">
-              Transfer confidential files with a modern hybrid encryption
-              architecture combining AES-256-GCM with post-quantum
-              cryptography and digital signatures.
+
+              QuantumSafe combines proven encryption with
+              post-quantum cryptography to protect confidential
+              files against today's threats and tomorrow's
+              quantum attacks.
+
             </p>
+
 
             <div className="hero-buttons">
 
@@ -185,121 +276,189 @@ function LandingPage() {
                 to="/auth?mode=register"
                 className="hero-primary"
               >
+
                 Start Secure Transfer
+
                 <FaArrowRight />
+
               </Link>
 
-              <Link
-                to="/auth?mode=login"
+
+              <a
+                href="#pipeline"
                 className="hero-secondary"
               >
-                Sign In
-              </Link>
+
+                Explore Security
+
+              </a>
 
             </div>
 
+
             <div className="hero-trust">
 
-              <div>
+              <span>
                 <FaCheckCircle />
-                <span>Quantum Resistant</span>
-              </div>
+                Quantum Resistant
+              </span>
 
-              <div>
+              <span>
                 <FaCheckCircle />
-                <span>End-to-End Protection</span>
-              </div>
+                Authenticated Encryption
+              </span>
 
-              <div>
+              <span>
                 <FaCheckCircle />
-                <span>Integrity Verified</span>
-              </div>
+                Integrity Verified
+              </span>
 
             </div>
 
           </div>
 
-          {/* ================= SECURITY VISUAL ================= */}
-          <div className="hero-visual">
 
-            <div className="visual-orbit orbit-one"></div>
-            <div className="visual-orbit orbit-two"></div>
+          {/* =================================================
+              HERO SECURITY VISUAL
+          ================================================= */}
 
-            <div className="security-panel">
+          <div className="quantum-visual">
 
-              <div className="panel-header">
-                <div>
-                  <span className="panel-label">
-                    SECURITY STATUS
-                  </span>
-                  <h3>Protection Active</h3>
-                </div>
+            <div className="visual-grid"></div>
 
-                <div className="status-badge">
-                  <span></span>
-                  ACTIVE
-                </div>
+            <div className="visual-orbit orbit-a"></div>
+            <div className="visual-orbit orbit-b"></div>
+
+
+            {/* TOP LEFT */}
+
+            <div className="algorithm algorithm-a">
+
+              <div className="algorithm-icon">
+                <FaLock />
               </div>
 
-              <div className="shield-container">
-                <div className="shield-ring">
+              <div>
+                <strong>AES-256-GCM</strong>
+                <span>ENCRYPTION</span>
+              </div>
+
+            </div>
+
+
+            {/* TOP RIGHT */}
+
+            <div className="algorithm algorithm-b">
+
+              <div className="algorithm-icon">
+                <FaKey />
+              </div>
+
+              <div>
+                <strong>ML-KEM</strong>
+                <span>KEY PROTECTION</span>
+              </div>
+
+            </div>
+
+
+            {/* BOTTOM LEFT */}
+
+            <div className="algorithm algorithm-c">
+
+              <div className="algorithm-icon">
+                <BsFingerprint />
+              </div>
+
+              <div>
+                <strong>SHA3-256</strong>
+                <span>INTEGRITY</span>
+              </div>
+
+            </div>
+
+
+            {/* BOTTOM RIGHT */}
+
+            <div className="algorithm algorithm-d">
+
+              <div className="algorithm-icon">
+                <FaSignature />
+              </div>
+
+              <div>
+                <strong>ML-DSA</strong>
+                <span>AUTHENTICATION</span>
+              </div>
+
+            </div>
+
+
+            {/* CONNECTION LINES */}
+
+            <div className="connection connection-a">
+              <span></span>
+            </div>
+
+            <div className="connection connection-b">
+              <span></span>
+            </div>
+
+            <div className="connection connection-c">
+              <span></span>
+            </div>
+
+            <div className="connection connection-d">
+              <span></span>
+            </div>
+
+
+            {/* 3D SECURITY CUBE */}
+
+            <div className="cube-stage">
+
+              <div className="cube-glow"></div>
+
+              <div className="cube">
+
+                <div className="cube-face cube-front">
                   <FaShieldAlt />
                 </div>
-              </div>
 
-              <div className="security-title">
-                <h2>Quantum Safe</h2>
-                <p>
-                  Hybrid cryptographic protection
-                </p>
-              </div>
-
-              <div className="security-tech">
-
-                <div className="tech-item">
+                <div className="cube-face cube-back">
                   <FaLock />
-                  <div>
-                    <strong>AES-256-GCM</strong>
-                    <span>File Encryption</span>
-                  </div>
                 </div>
 
-                <div className="tech-item">
+                <div className="cube-face cube-right">
                   <FaKey />
-                  <div>
-                    <strong>ML-KEM</strong>
-                    <span>Key Protection</span>
-                  </div>
                 </div>
 
-                <div className="tech-item">
-                  <BsFingerprint />
-                  <div>
-                    <strong>SHA3-256</strong>
-                    <span>Integrity Check</span>
-                  </div>
+                <div className="cube-face cube-left">
+                  <FaFingerprint />
                 </div>
 
-                <div className="tech-item">
+                <div className="cube-face cube-top">
                   <FaSignature />
-                  <div>
-                    <strong>ML-DSA</strong>
-                    <span>Authentication</span>
-                  </div>
+                </div>
+
+                <div className="cube-face cube-bottom">
+                  <FaCloud />
                 </div>
 
               </div>
 
-              <div className="panel-footer">
-                <span>
-                  <FaBolt />
-                  Cryptographic pipeline operational
-                </span>
+            </div>
 
-                <span className="footer-lock">
-                  <FaLock />
-                </span>
-              </div>
+
+            <div className="cube-label">
+
+              <span>
+                QUANTUMSAFE
+              </span>
+
+              <strong>
+                HYBRID SECURITY CORE
+              </strong>
 
             </div>
 
@@ -307,253 +466,701 @@ function LandingPage() {
 
         </section>
 
-        {/* ================= STATS ================= */}
+
+        {/* =================================================
+            STATS
+        ================================================= */}
+
         <section className="stats-section">
 
           {stats.map((stat, index) => (
-            <div className="stat-item" key={index}>
+
+            <div
+              className="stat-item"
+              key={index}
+            >
 
               <div className="stat-icon">
                 {stat.icon}
               </div>
 
-              <div>
-                <strong>{stat.value}</strong>
-                <span>{stat.label}</span>
-              </div>
+              <div className="stat-content">
 
-            </div>
-          ))}
+                <strong>
+                  {stat.value}
+                </strong>
 
-        </section>
-
-        {/* ================= PIPELINE ================= */}
-        <section className="pipeline-section" id="pipeline">
-
-          <div className="section-heading">
-
-            <span className="section-label">
-              <FaShieldAlt />
-              SECURE ARCHITECTURE
-            </span>
-
-            <h2>
-              Your file. Protected at
-              <span> every stage.</span>
-            </h2>
-
-            <p>
-              QuantumSafe uses multiple cryptographic layers to protect
-              confidentiality, integrity and authenticity during transfer.
-            </p>
-
-          </div>
-
-          <div className="pipeline">
-
-            {pipeline.map((step, index) => (
-
-              <React.Fragment key={index}>
-
-                <div className="pipeline-card">
-
-                  <div className="pipeline-top">
-                    <span>{step.number}</span>
-
-                    <div className="pipeline-icon">
-                      {step.icon}
-                    </div>
-                  </div>
-
-                  <h3>{step.title}</h3>
-
-                  <p>{step.desc}</p>
-
-                  <div className="pipeline-status">
-                    <span></span>
-                    SECURE
-                  </div>
-
-                </div>
-
-                {index !== pipeline.length - 1 && (
-                  <div className="pipeline-line">
-                    <span></span>
-                  </div>
-                )}
-
-              </React.Fragment>
-
-            ))}
-
-          </div>
-
-        </section>
-
-        {/* ================= FEATURES ================= */}
-        <section className="features-section" id="features">
-
-          <div className="section-heading">
-
-            <span className="section-label">
-              <FaUserShield />
-              SECURITY TECHNOLOGY
-            </span>
-
-            <h2>
-              Built with modern
-              <span> cryptography.</span>
-            </h2>
-
-            <p>
-              Every layer of the transfer process is designed around
-              established cryptographic principles and post-quantum
-              security concepts.
-            </p>
-
-          </div>
-
-          <div className="feature-grid">
-
-            {features.map((feature, index) => (
-
-              <div className="feature-card" key={index}>
-
-                <div className="feature-number">
-                  0{index + 1}
-                </div>
-
-                <div className="feature-icon">
-                  {feature.icon}
-                </div>
-
-                <h3>{feature.title}</h3>
-
-                <p>{feature.desc}</p>
-
-                <div className="feature-line"></div>
-
-                <span className="feature-status">
-                  <FaCheckCircle />
-                  PROTECTION ENABLED
+                <span>
+                  {stat.label}
                 </span>
 
               </div>
 
-            ))}
+            </div>
 
-          </div>
+          ))}
 
         </section>
 
-        {/* ================= TECHNOLOGY ================= */}
-        <section className="technology-section" id="technology">
 
-          <div className="technology-card">
+        {/* =================================================
+            PIPELINE
+        ================================================= */}
 
-            <div className="technology-content">
+        {/* =================================================
+    FILE DNA SECURITY TUNNEL
+================================================= */}
 
-              <span className="section-label">
-                <FaServer />
-                HYBRID ARCHITECTURE
+<section
+  className="pipeline-section"
+  id="pipeline"
+>
+
+  <div className="section-heading pipeline-heading">
+
+    <div className="section-kicker">
+      <span></span>
+      SECURE TRANSFER PROTOCOL
+    </div>
+
+    <h2>
+      One secure journey.
+      <span>Five layers of protection.</span>
+    </h2>
+
+    <p>
+      Every file travels through a sequence of cryptographic
+      gates before reaching its destination.
+    </p>
+
+  </div>
+
+
+  {/* =================================================
+      SECURITY TUNNEL
+  ================================================= */}
+
+  <div className="security-tunnel">
+
+    {/* Ambient tunnel glow */}
+    <div className="tunnel-glow"></div>
+
+    {/* Background grid */}
+    <div className="tunnel-grid"></div>
+
+
+    {/* =================================================
+        TOP LABEL
+    ================================================= */}
+
+    <div className="tunnel-status">
+
+      <span className="status-pulse"></span>
+
+      SECURE PIPELINE ACTIVE
+
+    </div>
+
+
+    {/* =================================================
+        FILE DNA / DATA STREAM
+    ================================================= */}
+
+    <div className="data-stream stream-one"></div>
+    <div className="data-stream stream-two"></div>
+    <div className="data-stream stream-three"></div>
+
+
+    {/* =================================================
+        TRAVELING FILE
+    ================================================= */}
+
+    <div className="travelling-file">
+
+      <div className="file-energy"></div>
+
+      <div className="file-icon">
+        <FaFileAlt />
+      </div>
+
+      <div className="file-info">
+        <strong>CONFIDENTIAL FILE</strong>
+        <span>ENCRYPTING...</span>
+      </div>
+
+    </div>
+
+
+    {/* =================================================
+        MAIN TUNNEL
+    ================================================= */}
+
+    <div className="tunnel-track">
+
+      <div className="tunnel-line"></div>
+
+      <div className="tunnel-core-line"></div>
+
+
+      {/* =================================================
+          GATE 01
+      ================================================= */}
+
+      <div className="security-gate gate-01">
+
+        <div className="gate-number">
+          01
+        </div>
+
+        <div className="gate-frame">
+
+          <div className="gate-corner corner-tl"></div>
+          <div className="gate-corner corner-tr"></div>
+          <div className="gate-corner corner-bl"></div>
+          <div className="gate-corner corner-br"></div>
+
+          <div className="gate-icon">
+            <FaFileAlt />
+          </div>
+
+          <div className="gate-scan"></div>
+
+        </div>
+
+        <div className="gate-content">
+
+          <span>
+            INPUT
+          </span>
+
+          <strong>
+            SELECT FILE
+          </strong>
+
+          <small>
+            Confidential file enters
+            the protected workflow.
+          </small>
+
+        </div>
+
+      </div>
+
+
+      {/* =================================================
+          GATE 02
+      ================================================= */}
+
+      <div className="security-gate gate-02">
+
+        <div className="gate-number">
+          02
+        </div>
+
+        <div className="gate-frame">
+
+          <div className="gate-corner corner-tl"></div>
+          <div className="gate-corner corner-tr"></div>
+          <div className="gate-corner corner-bl"></div>
+          <div className="gate-corner corner-br"></div>
+
+          <div className="gate-icon">
+            <FaLock />
+          </div>
+
+          <div className="gate-scan"></div>
+
+        </div>
+
+        <div className="gate-content">
+
+          <span>
+            ENCRYPTION
+          </span>
+
+          <strong>
+            AES-256-GCM
+          </strong>
+
+          <small>
+            File contents are protected
+            with authenticated encryption.
+          </small>
+
+        </div>
+
+      </div>
+
+
+      {/* =================================================
+          GATE 03
+      ================================================= */}
+
+      <div className="security-gate gate-03">
+
+        <div className="gate-number">
+          03
+        </div>
+
+        <div className="gate-frame">
+
+          <div className="gate-corner corner-tl"></div>
+          <div className="gate-corner corner-tr"></div>
+          <div className="gate-corner corner-bl"></div>
+          <div className="gate-corner corner-br"></div>
+
+          <div className="gate-icon">
+            <FaKey />
+          </div>
+
+          <div className="gate-scan"></div>
+
+        </div>
+
+        <div className="gate-content">
+
+          <span>
+            KEY PROTECTION
+          </span>
+
+          <strong>
+            ML-KEM
+          </strong>
+
+          <small>
+            Encryption keys receive
+            post-quantum protection.
+          </small>
+
+        </div>
+
+      </div>
+
+
+      {/* =================================================
+          GATE 04
+      ================================================= */}
+
+      <div className="security-gate gate-04">
+
+        <div className="gate-number">
+          04
+        </div>
+
+        <div className="gate-frame">
+
+          <div className="gate-corner corner-tl"></div>
+          <div className="gate-corner corner-tr"></div>
+          <div className="gate-corner corner-bl"></div>
+          <div className="gate-corner corner-br"></div>
+
+          <div className="gate-icon">
+            <BsFingerprint />
+          </div>
+
+          <div className="gate-scan"></div>
+
+        </div>
+
+        <div className="gate-content">
+
+          <span>
+            VERIFICATION
+          </span>
+
+          <strong>
+            SHA3-256 + ML-DSA
+          </strong>
+
+          <small>
+            Integrity and authenticity
+            are verified.
+          </small>
+
+        </div>
+
+      </div>
+
+
+      {/* =================================================
+          GATE 05
+      ================================================= */}
+
+      <div className="security-gate gate-05">
+
+        <div className="gate-number">
+          05
+        </div>
+
+        <div className="gate-frame">
+
+          <div className="gate-corner corner-tl"></div>
+          <div className="gate-corner corner-tr"></div>
+          <div className="gate-corner corner-bl"></div>
+          <div className="gate-corner corner-br"></div>
+
+          <div className="gate-icon">
+            <FaExchangeAlt />
+          </div>
+
+          <div className="gate-scan"></div>
+
+        </div>
+
+        <div className="gate-content">
+
+          <span>
+            DESTINATION
+          </span>
+
+          <strong>
+            SECURE TRANSFER
+          </strong>
+
+          <small>
+            The protected package reaches
+            its destination securely.
+          </small>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    {/* =================================================
+        BOTTOM SYSTEM STATUS
+    ================================================= */}
+
+    <div className="tunnel-footer">
+
+      <div className="tunnel-metric">
+        <span></span>
+        AES-256-GCM
+      </div>
+
+      <div className="tunnel-metric">
+        <span></span>
+        POST-QUANTUM
+      </div>
+
+      <div className="tunnel-metric">
+        <span></span>
+        INTEGRITY VERIFIED
+      </div>
+
+      <div className="tunnel-metric">
+        <span></span>
+        SECURE CHANNEL
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+        {/* =================================================
+            INTERACTIVE SECURITY CORE
+        ================================================= */}
+
+        <section
+          className="security-core-section"
+          id="security-core"
+        >
+
+          <div className="section-heading core-heading">
+
+            <div className="section-kicker">
+
+              <span></span>
+
+              INTERACTIVE SECURITY CORE
+
+            </div>
+
+
+            <h2>
+
+              Protection that works
+
+              <span>
+                layer by layer.
               </span>
 
-              <h2>
-                Traditional speed.
-                <span> Post-quantum protection.</span>
-              </h2>
+            </h2>
 
-              <p>
-                QuantumSafe combines high-speed symmetric encryption
-                with post-quantum key protection and digital signatures,
-                creating multiple security layers for sensitive file
-                transfers.
-              </p>
 
-              <div className="technology-points">
+            <p>
 
-                <div>
-                  <FaCheckCircle />
-                  <span>Confidentiality</span>
+              Six cryptographic controls. One protected
+              transfer architecture.
+
+            </p>
+
+          </div>
+
+
+          {/* =================================================
+              SECURITY CORE VISUAL
+          ================================================= */}
+
+          <div className="security-core-visual">
+
+
+            {/* BACKGROUND ORBITS */}
+
+            <div className="core-orbit orbit-one"></div>
+
+            <div className="core-orbit orbit-two"></div>
+
+
+            {/* =================================================
+                CONNECTOR LINES
+            ================================================= */}
+
+            <div className="core-connector connector-one">
+              <span></span>
+            </div>
+
+            <div className="core-connector connector-two">
+              <span></span>
+            </div>
+
+            <div className="core-connector connector-three">
+              <span></span>
+            </div>
+
+            <div className="core-connector connector-four">
+              <span></span>
+            </div>
+
+            <div className="core-connector connector-five">
+              <span></span>
+            </div>
+
+            <div className="core-connector connector-six">
+              <span></span>
+            </div>
+
+
+            {/* =================================================
+                ALGORITHM LABELS
+            ================================================= */}
+
+            {securityLayers.map((layer) => (
+
+              <button
+                key={layer.id}
+                type="button"
+                className={`core-algorithm algorithm-${layer.id} ${
+                  activeLayer === layer.id
+                    ? "active"
+                    : ""
+                }`}
+                onClick={() =>
+                  setActiveLayer(layer.id)
+                }
+                aria-label={`Select ${layer.name}`}
+              >
+
+                <span className="algorithm-dot"></span>
+
+                <span className="algorithm-info">
+
+                  <strong>
+                    {layer.name}
+                  </strong>
+
+                  <small>
+                    {layer.short}
+                  </small>
+
+                </span>
+
+              </button>
+
+            ))}
+
+
+            {/* =================================================
+                MAIN CIRCULAR CORE
+            ================================================= */}
+
+            <div className="security-ring">
+
+              <div className="ring-glow"></div>
+
+              <div className="ring-outer"></div>
+
+
+              {/* SIX SEGMENTS */}
+
+              <div className="ring-segments">
+
+                {securityLayers.map((layer) => (
+
+                  <button
+                    key={layer.id}
+                    type="button"
+                    className={`ring-segment segment-${layer.id} ${
+                      activeLayer === layer.id
+                        ? "active"
+                        : ""
+                    }`}
+                    onClick={() =>
+                      setActiveLayer(layer.id)
+                    }
+                    aria-label={`Activate ${layer.name}`}
+                  >
+
+                    <span>
+                      0{layer.id}
+                    </span>
+
+                  </button>
+
+                ))}
+
+              </div>
+
+
+              {/* =================================================
+                  CENTER CORE
+              ================================================= */}
+
+              <div className="security-core-center">
+
+                <div className="center-inner-ring"></div>
+
+
+                <div className="center-symbol">
+                  {activeSecurity.icon}
                 </div>
 
-                <div>
-                  <FaCheckCircle />
-                  <span>Integrity</span>
-                </div>
 
-                <div>
-                  <FaCheckCircle />
-                  <span>Authentication</span>
-                </div>
+                <span className="center-kicker">
+                  QUANTUM SAFE
+                </span>
 
-                <div>
-                  <FaCheckCircle />
-                  <span>Quantum Resistance</span>
+
+                <h3>
+
+                  SECURITY
+                  <br />
+                  CORE
+
+                </h3>
+
+
+                <span className="center-layer">
+                  LAYER 0{activeSecurity.id}
+                </span>
+
+
+                <strong>
+                  {activeSecurity.name}
+                </strong>
+
+
+                <small>
+                  {activeSecurity.short}
+                </small>
+
+
+                <p>
+                  {activeSecurity.description}
+                </p>
+
+
+                <div className="center-status">
+
+                  <span></span>
+
+                  PROTECTION ACTIVE
+
                 </div>
 
               </div>
 
             </div>
 
-            <div className="architecture-visual">
 
-              <div className="architecture-box">
-                <FaFileAlt />
-                <span>FILE</span>
-              </div>
+            {/* FLOATING PARTICLES */}
 
-              <div className="architecture-arrow">
-                <span></span>
-              </div>
-
-              <div className="architecture-box active">
-                <FaShieldAlt />
-                <span>HYBRID<br />ENCRYPTION</span>
-              </div>
-
-              <div className="architecture-arrow">
-                <span></span>
-              </div>
-
-              <div className="architecture-box">
-                <FaLock />
-                <span>SECURE<br />TRANSFER</span>
-              </div>
-
-            </div>
+            <span className="core-particle particle-one"></span>
+            <span className="core-particle particle-two"></span>
+            <span className="core-particle particle-three"></span>
+            <span className="core-particle particle-four"></span>
 
           </div>
 
         </section>
 
-        {/* ================= CTA ================= */}
+
+        {/* =================================================
+            CTA
+        ================================================= */}
+
         <section className="cta-section">
 
           <div className="cta-content">
 
-            <span className="section-label">
+            <div className="cta-glow"></div>
+
+            <div className="cta-orbit"></div>
+
+
+            <div className="cta-icon">
               <FaLock />
+            </div>
+
+
+            <span className="cta-kicker">
               YOUR DATA. YOUR CONTROL.
             </span>
 
+
             <h2>
-              Ready to transfer files
-              <span> securely?</span>
+
+              Protect what
+
+              <span>
+                matters.
+              </span>
+
             </h2>
 
+
             <p>
-              Start using QuantumSafe and protect your sensitive files
-              with modern hybrid cryptography.
+
+              Start transferring sensitive files with
+              a security architecture designed for the
+              next generation of threats.
+
             </p>
+
 
             <Link
               to="/auth?mode=register"
               className="cta-button"
             >
+
               Create Secure Account
+
               <FaArrowRight />
+
             </Link>
+
+
+            <div className="cta-note">
+
+              <FaCheckCircle />
+
+              No complicated setup • Secure by design
+
+            </div>
 
           </div>
 
@@ -561,36 +1168,75 @@ function LandingPage() {
 
       </main>
 
-      {/* ================= FOOTER ================= */}
+
+      {/* =================================================
+          FOOTER
+      ================================================= */}
+
       <footer className="footer">
 
-        <div className="footer-brand">
+        <div className="footer-main">
 
-          <div className="brand-icon">
-            Q
-          </div>
+          <Link
+            to="/"
+            className="footer-brand"
+          >
 
-          <div>
-            <strong>QuantumSafe</strong>
-            <span>POST-QUANTUM SECURE TRANSFER</span>
+            <div className="brand-mark">
+              <span>Q</span>
+            </div>
+
+            <div>
+
+              <strong>
+                QuantumSafe
+              </strong>
+
+              <span>
+                POST-QUANTUM SECURE TRANSFER
+              </span>
+
+            </div>
+
+          </Link>
+
+
+          <div className="footer-links">
+
+            <a href="#security-core">
+              Security
+            </a>
+
+            <a href="#pipeline">
+              How It Works
+            </a>
+
+            <a href="#security-core">
+              Security Core
+            </a>
+
+            <Link to="/auth?mode=login">
+              Login
+            </Link>
+
           </div>
 
         </div>
 
-        <p>
-          Secure File Transfer using Post-Quantum Cryptography
-        </p>
 
         <div className="footer-bottom">
 
           <span>
-            © 2026 QuantumSafe • Final Year Project
+            © 2026 QuantumSafe. Final Year Project.
           </span>
 
-          <div>
+          <span className="footer-security">
+
             <FaShieldAlt />
+
             Security First
-          </div>
+
+          </span>
 
         </div>
 
@@ -599,5 +1245,6 @@ function LandingPage() {
     </div>
   );
 }
+
 
 export default LandingPage;
