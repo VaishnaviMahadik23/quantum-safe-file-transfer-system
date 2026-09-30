@@ -137,4 +137,10 @@ public class FileMetadata {
     protected void onCreate() {
         uploadedAt = LocalDateTime.now();
     }
+    @Column(name = "digital_signature", nullable = false, columnDefinition = "bytea")
+        private byte[] digitalSignature;
+    
+        @Column(name = "signature_algorithm", nullable = false, length = 50)
+        @Builder.Default
+        private String signatureAlgorithm = "ML-DSA-65";
 }

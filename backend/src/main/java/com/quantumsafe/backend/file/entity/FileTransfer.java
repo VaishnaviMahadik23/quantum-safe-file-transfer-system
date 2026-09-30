@@ -73,6 +73,15 @@ public class FileTransfer {
     )
     private User receiver;
 
+
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+        @JoinColumn(
+        name = "file_metadata_id",
+        nullable = false,
+        unique = true
+        )
+        private FileMetadata fileMetadata;
+
     /**
      * SHA3-256 hash of the original plaintext file.
      *
