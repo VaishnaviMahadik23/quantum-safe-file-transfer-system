@@ -24,6 +24,9 @@ import org.bouncycastle.crypto.digests.SHA256Digest;
 import org.bouncycastle.crypto.generators.HKDFBytesGenerator;
 import org.bouncycastle.crypto.params.HKDFParameters;
 
+import java.security.PrivateKey;
+import java.security.Signature;
+
 
 @Service
 public class CryptoService {
@@ -309,4 +312,74 @@ public class CryptoService {
         }
 
 
+        public boolean verifySha3_256(
+                byte[] data,
+                String expectedHash
+        ) {
+            String actualHash = sha3_256(data);
+
+            return actualHash.equalsIgnoreCase(expectedHash);
+        }
+
+        public KeyPair generateMlDsa65KeyPair() {
+        try {
+        KeyPairGenerator keyPairGenerator =
+                KeyPairGenerator.getInstance("ML-DSA-65", "BC");
+
+        return keyPairGenerator.generateKeyPair();
+
+        } catch (Exception e) {
+        throw new RuntimeException(
+                "ML-DSA-65 key pair generation failed",
+                e
+                );
+                }
+        }
+
+        public byte[] signWithMlDsa(
+        byte[] data,
+        PrivateKey senderPrivateKey
+        ) {
+            try {
+                Signature signature =
+                Signature.getInstance("ML-DSA-65", "BC");
+
+        signature.initSign(senderPrivateKey);
+
+        signature.update(data);
+
+        return signature.sign();
+
+            } catch (Exception e) {
+                throw new RuntimeException(
+                        "ML-DSA-65 signing failed",
+                        e
+                );
+            }
+        }
+
+        public boolean verifyMlDsaSignature(
+        byte[] data,
+        byte[] signatureBytes,
+        PublicKey senderPublicKey
+        ) {
+            try {
+        Signature signature =
+                Signature.getInstance("ML-DSA-65", "BC");
+
+        signature.initVerify(senderPublicKey);
+
+        signature.update(data);
+
+        return signature.verify(signatureBytes);
+
+            } catch (Exception e) {
+                throw new RuntimeException(
+                        "ML-DSA-65 signature verification failed",
+                        e
+                );
+            }
+        }
+
+        
 }

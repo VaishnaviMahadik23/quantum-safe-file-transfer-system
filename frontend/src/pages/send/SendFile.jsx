@@ -27,6 +27,7 @@ function SendFile() {
   const [isDragging, setIsDragging] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [isSending, setIsSending] = useState(false);
 
   /*
    * Maximum file size for the frontend UI.
@@ -182,37 +183,103 @@ function SendFile() {
     }
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+const handleSubmit = async (event) => {
+  event.preventDefault();
 
-    setErrorMessage("");
-    setSuccessMessage("");
+  setErrorMessage("");
+  setSuccessMessage("");
 
-    if (!selectedFile) {
-      setErrorMessage(
-        "Please select a file before continuing."
-      );
+  // Validate file
+  if (!selectedFile) {
+    setErrorMessage("Please select a file before continuing.");
+    return;
+  }
 
-      return;
-    }
+  // Validate recipient
+  if (!recipient.trim()) {
+    setErrorMessage("Please enter the recipient's email address.");
+    return;
+  }
 
-    if (!recipient.trim()) {
-      setErrorMessage(
-        "Please enter the recipient's email address."
-      );
+  // Get JWT access token
+  const accessToken = localStorage.getItem("accessToken");
 
-      return;
-    }
-
-    /*
-     * Backend file-transfer API has not been implemented yet.
-     *
-     * We intentionally do NOT make a fake API request here.
-     */
-    setSuccessMessage(
-      "File is ready for secure transfer. Backend transfer integration will be connected once the file-transfer API is implemented."
+  if (!accessToken) {
+    setErrorMessage(
+      "Your login session was not found. Please log in again."
     );
-  };
+    return;
+  }
+
+  // Create multipart/form-data request
+  const formData = new FormData();
+
+  formData.append("file", selectedFile);
+  formData.append("recipientEmail", recipient.trim());
+
+  if (message.trim()) {
+    formData.append("message", message.trim());
+  }
+
+  try {
+    setIsSending(true);
+
+    const response = await fetch(
+      "http://localhost:8080/api/files/send",
+      {
+        method: "POST",
+
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+
+        body: formData,
+      }
+    );
+
+    if (!response.ok) {
+      let errorText = "Failed to send file.";
+
+      try {
+        const errorData = await response.json();
+
+        errorText =
+          errorData.message ||
+          errorData.error ||
+          errorText;
+      } catch {
+        // Backend may not return JSON
+      }
+
+      throw new Error(errorText);
+    }
+
+    const data = await response.json();
+
+    setSuccessMessage(
+      data.message || "File encrypted and sent successfully."
+    );
+
+    // Clear form after successful transfer
+    setSelectedFile(null);
+    setRecipient("");
+    setMessage("");
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+
+  } catch (error) {
+    console.error("File transfer failed:", error);
+
+    setErrorMessage(
+      error.message ||
+      "Unable to send the file. Please try again."
+    );
+  } finally {
+    setIsSending(false);
+  }
+};
 
   const handleReset = () => {
     setSelectedFile(null);
@@ -485,10 +552,13 @@ function SendFile() {
               <button
                 type="submit"
                 className="secure-send-btn"
+                disabled={isSending}
               >
                 <FaLock />
-
-                Prepare Secure Transfer
+                        
+                {isSending
+                  ? "Encrypting & Sending..."
+                  : "Send Securely"}
               </button>
 
             </div>
@@ -557,7 +627,7 @@ function SendFile() {
               <FaShieldAlt />
 
               <span>
-                Planned Cryptographic Protection
+                Active Cryptographic Protection
               </span>
             </div>
 
@@ -571,7 +641,7 @@ function SendFile() {
               </div>
 
               <span className="planned-badge">
-                Planned
+                Active
               </span>
             </div>
 
@@ -585,7 +655,7 @@ function SendFile() {
               </div>
 
               <span className="planned-badge">
-                Planned
+                Active
               </span>
             </div>
 
@@ -599,7 +669,7 @@ function SendFile() {
               </div>
 
               <span className="planned-badge">
-                Planned
+                Active
               </span>
             </div>
 
@@ -613,7 +683,7 @@ function SendFile() {
               </div>
 
               <span className="planned-badge">
-                Planned
+                Active
               </span>
             </div>
 
@@ -624,9 +694,8 @@ function SendFile() {
             <FaInfoCircle />
 
             <p>
-              Cryptographic keys and shared secrets will
-              never be displayed in the normal application
-              interface.
+               Cryptographic keys and shared secrets are never
+               displayed in the normal application interface.
             </p>
 
           </div>

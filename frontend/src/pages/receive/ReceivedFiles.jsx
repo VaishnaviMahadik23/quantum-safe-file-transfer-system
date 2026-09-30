@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import {
   FaSearch,
@@ -22,17 +22,74 @@ import "./ReceivedFiles.css";
 function ReceiveFiles() {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeFilter, setActiveFilter] = useState("ALL");
+  const [receivedFiles, setReceivedFiles] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [downloadingId, setDownloadingId] = useState(null);
 
-  /*
-   * The backend Receive Files API has not been implemented yet.
-   *
-   * Keep this array empty intentionally.
-   *
-   * When the backend endpoint is ready, the received files
-   * will be loaded through the API service instead of using
-   * hardcoded/mock data.
-   */
-  const receivedFiles = [];
+   useEffect(() => {
+    const loadReceivedFiles = async () => {
+      setIsLoading(true);
+      setErrorMessage("");
+
+      const accessToken = localStorage.getItem("accessToken");
+
+      if (!accessToken) {
+        setErrorMessage(
+          "Your login session was not found. Please log in again."
+        );
+        setIsLoading(false);
+        return;
+      }
+
+      try {
+        const response = await fetch(
+          "http://localhost:8080/api/files/received",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to load received files.");
+        }
+
+        const data = await response.json();
+
+        const mappedFiles = data.map((file) => ({
+          id: file.transferId,
+          fileId: file.fileId,
+          name: file.fileName,
+          type: file.contentType,
+          size: file.fileSize,
+          sender: file.senderUsername,
+          senderEmail: file.senderUsername,
+          status: file.status,
+          encryptionAlgorithm: file.encryptionAlgorithm,
+          kemAlgorithm: file.kemAlgorithm,
+          signatureAlgorithm: file.signatureAlgorithm,
+          receivedAt: file.createdAt
+            ? new Date(file.createdAt).toLocaleString()
+            : "—",
+        }));
+
+        setReceivedFiles(mappedFiles);
+      } catch (error) {
+        console.error("Failed to load received files:", error);
+
+        setErrorMessage(
+          error.message || "Unable to load received files."
+        );
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadReceivedFiles();
+  }, []);
 
   const filters = [
     {
@@ -40,8 +97,8 @@ function ReceiveFiles() {
       value: "ALL",
     },
     {
-      label: "Verified",
-      value: "VERIFIED",
+      label: "Ready",
+      value: "READY",
     },
     {
       label: "Pending",
@@ -121,7 +178,7 @@ function ReceiveFiles() {
 
   const getStatusIcon = (status) => {
     switch (status) {
-      case "VERIFIED":
+      case "READY":
         return <FaCheckCircle />;
 
       case "PENDING":
@@ -137,8 +194,8 @@ function ReceiveFiles() {
 
   const getStatusLabel = (status) => {
     switch (status) {
-      case "VERIFIED":
-        return "Verified";
+      case "READY":
+        return "Ready";
 
       case "PENDING":
         return "Pending";
@@ -169,18 +226,62 @@ function ReceiveFiles() {
     });
   }, [receivedFiles, searchTerm, activeFilter]);
 
-  const handleDownload = (file) => {
-    /*
-     * Download API will be connected after the backend
-     * File Transfer module is implemented.
-     *
-     * No fake download is performed here.
-     */
+  const handleDownload = async (file) => {
+    const accessToken = localStorage.getItem("accessToken");
 
-    console.info(
-      "Download requested for:",
-      file?.name
-    );
+    if (!accessToken) {
+      setErrorMessage(
+        "Your login session was not found. Please log in again."
+      );
+      return;
+    }
+
+    try {
+      setDownloadingId(file.id);
+      setErrorMessage("");
+
+      const response = await fetch(
+        `http://localhost:8080/api/files/download/${file.id}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          "Secure file download or verification failed."
+        );
+      }
+
+      const blob = await response.blob();
+
+      const downloadUrl = window.URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+
+      link.href = downloadUrl;
+      link.download = file.name;
+
+      document.body.appendChild(link);
+
+      link.click();
+
+      document.body.removeChild(link);
+
+      window.URL.revokeObjectURL(downloadUrl);
+
+    } catch (error) {
+      console.error("Download failed:", error);
+
+      setErrorMessage(
+        error.message || "Unable to download the file."
+      );
+    } finally {
+      setDownloadingId(null);
+    }
   };
 
   return (
@@ -294,12 +395,12 @@ function ReceiveFiles() {
           </div>
 
           <div>
-            <span>Verified</span>
+            <span>Ready</span>
 
             <strong>
               {
                 receivedFiles.filter(
-                  (file) => file.status === "VERIFIED"
+                  (file) => file.status === "READY"
                 ).length
               }
             </strong>
@@ -332,6 +433,18 @@ function ReceiveFiles() {
       {/* =========================
           FILE LIST
       ========================== */}
+    {isLoading && (
+    <div className="transfer-alert">
+      Loading received files...
+    </div>
+  )}
+
+  {errorMessage && (
+    <div className="transfer-alert error-alert" role="alert">
+      <FaTimesCircle />
+      <span>{errorMessage}</span>
+    </div>
+  )}
 
       <section className="received-files-card">
 
@@ -367,9 +480,7 @@ function ReceiveFiles() {
             </h3>
 
             <p>
-              Files securely sent to your account will
-              appear here once the file-transfer service
-              is available.
+               No files have been sent to this account yet.
             </p>
 
             <div className="empty-security-note">
@@ -506,12 +617,14 @@ function ReceiveFiles() {
                           handleDownload(file)
                         }
                         disabled={
-                          file.status !== "VERIFIED"
+                          file.status !== "READY" || downloadingId === file.id
                         }
                       >
                         <FaDownload />
 
-                        Download
+                        {downloadingId === file.id
+                        ? "Verifying & Downloading..."
+                        : "Download"}
                       </button>
 
                     </td>
@@ -545,11 +658,10 @@ function ReceiveFiles() {
           </h3>
 
           <p>
-            Future received files will pass through the
-            quantum-safe verification pipeline before
-            download. File integrity and signature
-            verification results will be shown here without
-            exposing secret cryptographic material.
+            Received files pass through the quantum-safe verification
+            pipeline before download. File integrity and digital
+           signature verification are performed without exposing
+            secret cryptographic material.
           </p>
 
         </div>
