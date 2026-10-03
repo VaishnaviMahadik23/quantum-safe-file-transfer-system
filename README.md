@@ -4,8 +4,6 @@ A secure file transfer application designed to protect sensitive files using mod
 
 The project combines **JWT-based authentication**, **AES-256-GCM**, **ML-KEM**, **ML-DSA**, and **SHA3-256** to provide a foundation for quantum-resistant secure file transfer.
 
-> **Project Status:** Authentication and frontend application structure are implemented. File-transfer and cryptographic backend modules are under development.
-
 ---
 
 ## 1. Project Overview
@@ -1002,17 +1000,17 @@ Also verify that the JWT has not expired or been invalidated.
 * [x] Transfer History UI
 * [x] Profile UI
 * [x] Crypto Details UI
+* [x] Backend File Transfer APIs
+* [x] Secure file upload
+* [x] Secure file download
+* [x] AES-256-GCM implementation
+* [x] ML-KEM integration
+* [x] ML-DSA integration
+* [x] SHA3-256 file hashing
+* [x] Digital signature verification
 
 ## In Progress / Planned
 
-* [ ] Backend File Transfer APIs
-* [ ] Secure file upload
-* [ ] Secure file download
-* [ ] AES-256-GCM implementation
-* [ ] ML-KEM integration
-* [ ] ML-DSA integration
-* [ ] SHA3-256 file hashing
-* [ ] Digital signature verification
 * [ ] End-to-end encrypted file transfer
 * [ ] Cryptographic execution metrics
 * [ ] Final security testing
