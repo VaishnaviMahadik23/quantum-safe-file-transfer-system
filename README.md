@@ -1086,7 +1086,7 @@ For an already-configured development machine:
 
 ```bash
 # Clone
-git clone <YOUR_GITHUB_REPOSITORY_URL>
+git clone https://github.com/VaishnaviMahadik23/quantum-safe-file-transfer-system.git
 
 # Backend
 cd QuantumSafeFileTransfer/backend
