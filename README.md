@@ -254,7 +254,7 @@ If the project contains Maven Wrapper files, Maven Wrapper can be used instead.
 Clone the project:
 
 ```bash
-git clone <YOUR_GITHUB_REPOSITORY_URL>
+git clone https://github.com/VaishnaviMahadik23/quantum-safe-file-transfer-system.git
 ```
 
 Enter the project:
