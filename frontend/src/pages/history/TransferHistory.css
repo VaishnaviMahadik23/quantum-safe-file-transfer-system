@@ -1,9 +1,15 @@
+
+/* =========================================================
+   QUANTUMSAFE — TRANSFER HISTORY
+   PREMIUM BLACK & PURPLE GLASS THEME
+========================================================= */
+
 .transfer-history-page {
   width: 100%;
   min-height: 100%;
   padding: 32px;
   box-sizing: border-box;
-  color: #e2e8f0;
+  color: #e9e4f5;
 }
 
 /* =========================
@@ -20,37 +26,39 @@
 
 .history-eyebrow {
   display: inline-block;
-  margin-bottom: 8px;
-  color: #60a5fa;
-  font-size: 12px;
+  margin-bottom: 9px;
+  color: #c084fc;
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 1.5px;
+  letter-spacing: 1.8px;
 }
 
 .history-header h1 {
   margin: 0;
-  color: #f8fafc;
+  color: #ffffff;
   font-size: 32px;
-  font-weight: 700;
+  font-weight: 750;
+  letter-spacing: -0.7px;
 }
 
 .history-header p {
-  margin: 8px 0 0;
-  color: #94a3b8;
-  font-size: 15px;
+  margin: 9px 0 0;
+  color: #a49ab8;
+  font-size: 13px;
+  line-height: 1.8;
 }
 
 .history-security-badge {
   display: flex;
   align-items: center;
   gap: 9px;
-  padding: 10px 15px;
-  border: 1px solid rgba(96, 165, 250, 0.25);
-  border-radius: 10px;
-  background: rgba(37, 99, 235, 0.1);
-  color: #93c5fd;
-  font-size: 13px;
-  font-weight: 600;
+  padding: 11px 15px;
+  border: 1px solid rgba(168, 85, 247, 0.25);
+  border-radius: 11px;
+  background: rgba(168, 85, 247, 0.09);
+  color: #d8b4fe;
+  font-size: 11px;
+  font-weight: 650;
   white-space: nowrap;
 }
 
@@ -59,68 +67,99 @@
 }
 
 /* =========================
-   SUMMARY
+   SUMMARY CARDS
 ========================= */
 
 .history-summary {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-bottom: 22px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 15px;
+  margin-bottom: 25px;
 }
 
 .history-summary-card {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 13px;
-  padding: 17px;
-  border: 1px solid rgba(148, 163, 184, 0.1);
-  border-radius: 13px;
-  background: rgba(15, 23, 42, 0.65);
+  gap: 14px;
+  min-width: 0;
+  padding: 19px;
+  overflow: hidden;
+  border: 1px solid rgba(168, 85, 247, 0.16);
+  border-radius: 15px;
+  background:
+    radial-gradient(
+      ellipse at 100% 0%,
+      rgba(126, 34, 206, 0.10),
+      transparent 58%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(22, 16, 35, 0.95),
+      rgba(11, 10, 19, 0.97)
+    );
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.025);
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.history-summary-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(192, 132, 252, 0.4);
 }
 
 .history-summary-icon {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  border-radius: 10px;
-  background: rgba(96, 165, 250, 0.08);
-  color: #60a5fa;
-  font-size: 16px;
+  border: 1px solid rgba(168, 85, 247, 0.18);
+  border-radius: 12px;
+  background: rgba(168, 85, 247, 0.11);
+  color: #c084fc;
+  font-size: 17px;
 }
 
 .history-summary-icon.sent {
-  background: rgba(139, 92, 246, 0.08);
-  color: #a78bfa;
+  background: rgba(192, 132, 252, 0.1);
+  color: #d8b4fe;
 }
 
 .history-summary-icon.received {
-  background: rgba(14, 165, 233, 0.08);
-  color: #38bdf8;
+  background: rgba(99, 102, 241, 0.1);
+  color: #a5b4fc;
 }
 
 .history-summary-icon.completed {
   background: rgba(34, 197, 94, 0.08);
-  color: #4ade80;
+  color: #86efac;
+}
+
+.history-summary-card > div:last-child {
+  min-width: 0;
 }
 
 .history-summary-card span {
   display: block;
-  margin-bottom: 4px;
-  color: #64748b;
-  font-size: 11px;
+  margin-bottom: 7px;
+  color: #a49ab8;
+  font-size: 10px;
+  line-height: 1.5;
 }
 
 .history-summary-card strong {
-  color: #e2e8f0;
-  font-size: 18px;
+  display: block;
+  color: #ffffff;
+  font-size: 23px;
+  font-weight: 750;
+  line-height: 1.2;
 }
 
 /* =========================
-   TOOLBAR
+   SEARCH TOOLBAR
 ========================= */
 
 .history-toolbar {
@@ -136,18 +175,24 @@
   height: 44px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 11px;
   padding: 0 14px;
   box-sizing: border-box;
-  border: 1px solid rgba(148, 163, 184, 0.15);
-  border-radius: 10px;
-  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(168, 85, 247, 0.18);
+  border-radius: 11px;
+  background: rgba(17, 13, 27, 0.88);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.history-search:focus-within {
+  border-color: rgba(192, 132, 252, 0.55);
+  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.08);
 }
 
 .history-search svg {
-  color: #64748b;
-  font-size: 14px;
   flex-shrink: 0;
+  color: #b79bcf;
+  font-size: 13px;
 }
 
 .history-search input {
@@ -156,13 +201,13 @@
   border: none;
   outline: none;
   background: transparent;
-  color: #e2e8f0;
+  color: #f3e8ff;
   font-family: inherit;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .history-search input::placeholder {
-  color: #475569;
+  color: #756984;
 }
 
 .history-filters {
@@ -174,32 +219,38 @@
 
 .history-filter-icon {
   margin-right: 3px;
-  color: #64748b;
+  color: #b79bcf;
   font-size: 13px;
 }
 
 .history-filter-btn {
-  padding: 8px 12px;
-  border: 1px solid rgba(148, 163, 184, 0.12);
+  padding: 8px 11px;
+  border: 1px solid rgba(168, 85, 247, 0.14);
   border-radius: 8px;
-  background: transparent;
-  color: #64748b;
+  background: rgba(17, 13, 27, 0.7);
+  color: #a49ab8;
   font-family: inherit;
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 10px;
+  font-weight: 650;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .history-filter-btn:hover {
-  border-color: rgba(96, 165, 250, 0.25);
-  color: #94a3b8;
+  border-color: rgba(192, 132, 252, 0.35);
+  background: rgba(168, 85, 247, 0.08);
+  color: #e9d5ff;
 }
 
 .history-filter-btn.active {
-  border-color: rgba(96, 165, 250, 0.3);
-  background: rgba(37, 99, 235, 0.12);
-  color: #93c5fd;
+  border-color: rgba(192, 132, 252, 0.4);
+  background: linear-gradient(
+    135deg,
+    rgba(168, 85, 247, 0.2),
+    rgba(109, 40, 217, 0.12)
+  );
+  color: #e9d5ff;
+  box-shadow: inset 0 0 12px rgba(168, 85, 247, 0.04);
 }
 
 /* =========================
@@ -208,10 +259,16 @@
 
 .history-card {
   overflow: hidden;
-  border: 1px solid rgba(148, 163, 184, 0.1);
+  border: 1px solid rgba(168, 85, 247, 0.17);
   border-radius: 16px;
-  background: rgba(15, 23, 42, 0.72);
-  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(
+    145deg,
+    rgba(20, 15, 31, 0.96),
+    rgba(11, 10, 19, 0.98)
+  );
+  box-shadow:
+    0 10px 35px rgba(0, 0, 0, 0.17),
+    inset 0 1px 0 rgba(255, 255, 255, 0.02);
 }
 
 .history-card-header {
@@ -220,28 +277,31 @@
   justify-content: space-between;
   gap: 15px;
   padding: 22px 24px;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+  border-bottom: 1px solid rgba(168, 85, 247, 0.13);
 }
 
 .history-card-header h2 {
   margin: 0;
-  color: #f8fafc;
-  font-size: 17px;
+  color: #f5eaff;
+  font-size: 16px;
+  font-weight: 700;
 }
 
 .history-card-header p {
-  margin: 5px 0 0;
-  color: #64748b;
-  font-size: 12px;
+  margin: 6px 0 0;
+  color: #a49ab8;
+  font-size: 11px;
+  line-height: 1.6;
 }
 
 .history-count {
-  padding: 6px 10px;
-  border: 1px solid rgba(148, 163, 184, 0.1);
-  border-radius: 7px;
-  color: #64748b;
+  padding: 7px 11px;
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  border-radius: 8px;
+  background: rgba(168, 85, 247, 0.08);
+  color: #d8b4fe;
   font-size: 10px;
-  font-weight: 600;
+  font-weight: 650;
   white-space: nowrap;
 }
 
@@ -260,66 +320,74 @@
 }
 
 .history-empty-icon {
-  width: 68px;
-  height: 68px;
+  width: 70px;
+  height: 70px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 18px;
-  border-radius: 19px;
-  background: rgba(37, 99, 235, 0.09);
-  color: #60a5fa;
-  font-size: 26px;
+  margin-bottom: 19px;
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  border-radius: 20px;
+  background: linear-gradient(
+    145deg,
+    rgba(168, 85, 247, 0.17),
+    rgba(109, 40, 217, 0.08)
+  );
+  color: #d8b4fe;
+  font-size: 25px;
+  box-shadow: 0 0 28px rgba(168, 85, 247, 0.06);
 }
 
 .history-empty h3 {
-  margin: 0 0 8px;
-  color: #cbd5e1;
+  margin: 0 0 9px;
+  color: #f5eaff;
   font-size: 17px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .history-empty > p {
-  max-width: 500px;
+  max-width: 490px;
   margin: 0;
-  color: #64748b;
-  font-size: 13px;
-  line-height: 1.7;
+  color: #a49ab8;
+  font-size: 11px;
+  line-height: 1.9;
 }
 
 .history-empty-note {
-  max-width: 500px;
+  max-width: 490px;
   display: flex;
   align-items: flex-start;
-  gap: 9px;
-  margin-top: 20px;
-  padding: 12px 14px;
-  border: 1px solid rgba(96, 165, 250, 0.1);
-  border-radius: 9px;
-  background: rgba(37, 99, 235, 0.04);
+  gap: 10px;
+  margin-top: 21px;
+  padding: 13px 15px;
+  border: 1px solid rgba(168, 85, 247, 0.15);
+  border-radius: 10px;
+  background: rgba(168, 85, 247, 0.055);
   text-align: left;
 }
 
 .history-empty-note svg {
-  margin-top: 2px;
-  color: #60a5fa;
-  font-size: 12px;
   flex-shrink: 0;
+  margin-top: 2px;
+  color: #c084fc;
+  font-size: 12px;
 }
 
 .history-empty-note span {
-  color: #64748b;
+  color: #b7a9c9;
   font-size: 10px;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 /* =========================
-   TABLE
+   TRANSFER TABLE
 ========================= */
 
 .history-table-wrapper {
   width: 100%;
   overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #7041a3 #100c19;
 }
 
 .history-table {
@@ -329,22 +397,24 @@
 }
 
 .history-table th {
-  padding: 14px 20px;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.08);
-  background: rgba(30, 41, 59, 0.25);
-  color: #64748b;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.6px;
+  padding: 15px 20px;
+  border-bottom: 1px solid rgba(168, 85, 247, 0.13);
+  background: rgba(168, 85, 247, 0.045);
+  color: #b4a2c9;
+  font-size: 9px;
+  font-weight: 750;
+  letter-spacing: 0.8px;
   text-align: left;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .history-table td {
   padding: 16px 20px;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.06);
-  color: #94a3b8;
-  font-size: 12px;
+  border-bottom: 1px solid rgba(168, 85, 247, 0.075);
+  color: #c7bdd7;
+  font-size: 11px;
+  vertical-align: middle;
 }
 
 .history-table tbody tr {
@@ -352,7 +422,7 @@
 }
 
 .history-table tbody tr:hover {
-  background: rgba(30, 41, 59, 0.3);
+  background: rgba(168, 85, 247, 0.055);
 }
 
 .history-table tbody tr:last-child td {
@@ -360,7 +430,7 @@
 }
 
 /* =========================
-   FILE
+   FILE DETAILS
 ========================= */
 
 .history-file {
@@ -371,31 +441,32 @@
 }
 
 .history-file-box {
-  width: 38px;
-  height: 38px;
+  width: 39px;
+  height: 39px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  border-radius: 9px;
-  background: rgba(51, 65, 85, 0.4);
+  border: 1px solid rgba(168, 85, 247, 0.14);
+  border-radius: 10px;
+  background: rgba(168, 85, 247, 0.08);
 }
 
 .history-file-icon {
-  color: #94a3b8;
+  color: #c4b5d8;
   font-size: 17px;
 }
 
 .history-file-icon.pdf {
-  color: #f87171;
+  color: #fb7185;
 }
 
 .history-file-icon.image {
-  color: #60a5fa;
+  color: #a5b4fc;
 }
 
 .history-file-icon.code {
-  color: #a78bfa;
+  color: #c084fc;
 }
 
 .history-file-details {
@@ -406,16 +477,16 @@
   display: block;
   max-width: 210px;
   overflow: hidden;
-  margin-bottom: 3px;
-  color: #cbd5e1;
-  font-size: 12px;
-  font-weight: 600;
+  margin-bottom: 4px;
+  color: #f0e8fa;
+  font-size: 11px;
+  font-weight: 650;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .history-file-details span {
-  color: #64748b;
+  color: #9587a8;
   font-size: 10px;
 }
 
@@ -427,80 +498,86 @@
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  padding: 5px 8px;
-  border-radius: 7px;
+  padding: 6px 9px;
+  border: 1px solid transparent;
+  border-radius: 8px;
   font-size: 10px;
-  font-weight: 600;
+  font-weight: 650;
+  white-space: nowrap;
 }
 
 .transfer-type.sent {
-  background: rgba(139, 92, 246, 0.08);
-  color: #a78bfa;
+  border-color: rgba(192, 132, 252, 0.15);
+  background: rgba(168, 85, 247, 0.09);
+  color: #d8b4fe;
 }
 
 .transfer-type.received {
-  background: rgba(14, 165, 233, 0.08);
-  color: #38bdf8;
+  border-color: rgba(129, 140, 248, 0.15);
+  background: rgba(99, 102, 241, 0.09);
+  color: #a5b4fc;
 }
 
 .transfer-type svg {
-  font-size: 9px;
+  font-size: 10px;
 }
 
 /* =========================
-   USER
+   USER DETAILS
 ========================= */
 
 .history-user strong {
   display: block;
-  margin-bottom: 3px;
-  color: #cbd5e1;
+  margin-bottom: 4px;
+  color: #e9e0f5;
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 650;
 }
 
 .history-user span {
-  color: #64748b;
+  color: #9587a8;
   font-size: 10px;
 }
 
-/* =========================
-   SIZE / DATE
-========================= */
-
 .history-size,
 .history-date {
-  color: #94a3b8;
-  font-size: 11px;
+  color: #c4b5d8;
+  font-size: 10px;
+  white-space: nowrap;
 }
 
 /* =========================
-   STATUS
+   TRANSFER STATUS
 ========================= */
 
 .history-status {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 5px 8px;
-  border-radius: 7px;
+  padding: 6px 9px;
+  border: 1px solid transparent;
+  border-radius: 8px;
   font-size: 10px;
-  font-weight: 600;
+  font-weight: 650;
+  white-space: nowrap;
 }
 
 .history-status.completed {
-  background: rgba(34, 197, 94, 0.08);
-  color: #4ade80;
+  border-color: rgba(74, 222, 128, 0.14);
+  background: rgba(34, 197, 94, 0.075);
+  color: #86efac;
 }
 
 .history-status.pending {
-  background: rgba(245, 158, 11, 0.08);
-  color: #fbbf24;
+  border-color: rgba(251, 191, 36, 0.14);
+  background: rgba(245, 158, 11, 0.07);
+  color: #fcd34d;
 }
 
 .history-status.failed {
-  background: rgba(239, 68, 68, 0.08);
-  color: #f87171;
+  border-color: rgba(248, 113, 113, 0.14);
+  background: rgba(239, 68, 68, 0.07);
+  color: #fca5a5;
 }
 
 .history-status svg {
@@ -508,20 +585,22 @@
 }
 
 /* =========================
-   SECURITY
+   SECURITY STATUS
 ========================= */
 
 .history-security {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  color: #60a5fa;
+  gap: 7px;
+  color: #d8b4fe;
   font-size: 10px;
-  font-weight: 600;
+  font-weight: 650;
+  white-space: nowrap;
 }
 
 .history-security svg {
-  font-size: 10px;
+  color: #c084fc;
+  font-size: 11px;
 }
 
 /* =========================
@@ -531,51 +610,58 @@
 .history-security-info {
   display: flex;
   align-items: flex-start;
-  gap: 13px;
+  gap: 14px;
   margin-top: 22px;
-  padding: 18px;
-  border: 1px solid rgba(96, 165, 250, 0.12);
-  border-radius: 13px;
-  background: rgba(37, 99, 235, 0.05);
+  padding: 19px;
+  border: 1px solid rgba(168, 85, 247, 0.17);
+  border-radius: 14px;
+  background:
+    radial-gradient(
+      ellipse at 0% 0%,
+      rgba(126, 34, 206, 0.1),
+      transparent 60%
+    ),
+    rgba(15, 12, 24, 0.86);
 }
 
 .history-security-info-icon {
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  border-radius: 9px;
-  background: rgba(37, 99, 235, 0.1);
-  color: #60a5fa;
+  border: 1px solid rgba(168, 85, 247, 0.18);
+  border-radius: 11px;
+  background: rgba(168, 85, 247, 0.1);
+  color: #d8b4fe;
+  font-size: 15px;
 }
 
 .history-security-info h3 {
-  margin: 0 0 5px;
-  color: #cbd5e1;
+  margin: 1px 0 7px;
+  color: #f0e5ff;
   font-size: 13px;
+  font-weight: 700;
 }
 
 .history-security-info p {
-  max-width: 850px;
+  max-width: 900px;
   margin: 0;
-  color: #64748b;
-  font-size: 11px;
-  line-height: 1.7;
+  color: #a49ab8;
+  font-size: 10px;
+  line-height: 1.9;
 }
 
 /* =========================
    RESPONSIVE
 ========================= */
 
-@media (max-width: 1200px) {
+@media (max-width: 1250px) {
   .history-summary {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-}
 
-@media (max-width: 1000px) {
   .history-toolbar {
     align-items: stretch;
     flex-direction: column;
@@ -592,11 +678,12 @@
 
 @media (max-width: 750px) {
   .transfer-history-page {
-    padding: 20px;
+    padding: 22px;
   }
 
   .history-header {
     flex-direction: column;
+    gap: 16px;
   }
 
   .history-header h1 {
@@ -604,13 +691,9 @@
   }
 
   .history-security-badge {
-    width: 100%;
-    justify-content: center;
-    box-sizing: border-box;
-  }
-
-  .history-summary {
-    grid-template-columns: 1fr;
+    width: fit-content;
+    max-width: 100%;
+    white-space: normal;
   }
 
   .history-card-header {
@@ -618,26 +701,79 @@
   }
 
   .history-security-info {
-    padding: 15px;
+    padding: 16px;
   }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 500px) {
   .transfer-history-page {
-    padding: 15px;
+    padding: 16px;
+  }
+
+  .history-summary {
+    grid-template-columns: 1fr;
+    gap: 11px;
+  }
+
+  .history-summary-card {
+    padding: 16px;
+  }
+
+  .history-summary-card strong {
+    font-size: 21px;
   }
 
   .history-filters {
-    gap: 6px;
+    gap: 7px;
+  }
+
+  .history-filter-icon {
+    display: none;
   }
 
   .history-filter-btn {
-    flex: 1;
-    min-width: 90px;
+    flex: 1 1 auto;
+    padding: 9px 10px;
   }
 
   .history-empty {
     min-height: 300px;
     padding: 30px 18px;
+  }
+
+  .history-empty-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 22px;
+  }
+
+  .history-empty h3 {
+    font-size: 15px;
+  }
+
+  .history-empty-note {
+    padding: 11px;
+  }
+
+  .history-security-info {
+    gap: 11px;
+    padding: 14px;
+  }
+}
+
+/* =========================
+   ACCESSIBILITY
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .history-summary-card,
+  .history-filter-btn,
+  .history-search,
+  .history-table tbody tr {
+    transition: none;
+  }
+
+  .history-summary-card:hover {
+    transform: none;
   }
 }
